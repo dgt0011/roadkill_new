@@ -76,9 +76,9 @@ namespace Roadkill.Api.Extensions
 				throw new InvalidOperationException("The JWT.Password setting is under 20 characters in length.");
 			}
 
-			if (jwtSettings.JwtExpiresMinutes < 1)
+			if (jwtSettings.ExpiresMinutes < 1)
 			{
-				logger.LogError($"The JWT.JwtExpiresMinutes is {jwtSettings.JwtExpiresMinutes}.");
+				logger.LogError($"The JWT.JwtExpiresMinutes is {jwtSettings.ExpiresMinutes}.");
 				throw new InvalidOperationException("The JWT.JwtExpiresMinutes is setting should be 1 or greater.");
 			}
 
