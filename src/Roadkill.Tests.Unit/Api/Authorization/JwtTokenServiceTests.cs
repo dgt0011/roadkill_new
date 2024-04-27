@@ -47,7 +47,7 @@ namespace Roadkill.Tests.Unit.Api.Authorization
 			_jwtSettings = new JwtSettings()
 			{
 				Password = "a-very-secure-password-18-characters",
-				JwtExpiresMinutes = 5,
+				ExpiresMinutes = 5,
 				RefreshTokenExpiresDays = _refreshTokenExpiresDays
 			};
 
@@ -91,7 +91,7 @@ namespace Roadkill.Tests.Unit.Api.Authorization
 			// given
 			var existingClaims = new List<Claim>() { RoadkillClaims.AdminClaim };
 			string email = "bob@example.com";
-			var expectedExpiry = DateTime.UtcNow.AddMinutes(_jwtSettings.JwtExpiresMinutes);
+			var expectedExpiry = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiresMinutes);
 
 			// when
 			string token = _service.CreateJwtToken(existingClaims, email);
