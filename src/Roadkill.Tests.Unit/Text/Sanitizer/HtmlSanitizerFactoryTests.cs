@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Ganss.XSS;
+using Ganss.Xss;
 using NSubstitute;
 using Roadkill.Text;
 using Roadkill.Text.Sanitizer;
@@ -46,7 +46,6 @@ namespace Roadkill.Tests.Unit.Text.Sanitizer
 
 			// then
 			sanitizer.ShouldNotBeNull();
-			sanitizer.AllowDataAttributes.ShouldNotBeNull();
 
 			sanitizer.AllowedSchemes.ShouldContain("http");
 			sanitizer.AllowedSchemes.ShouldContain("https");

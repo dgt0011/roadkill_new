@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -59,7 +59,7 @@ namespace Roadkill.Tests.Integration.Core.Search.Adapters
 				return "host=roadkill-postgres;port=5432;database=roadkilltests;username=roadkill;password=roadkill;";
 			}
 
-			return "host=localhost;port=5432;database=roadkilltests;username=roadkill;password=roadkill;";;
+			return "Host=192.168.0.234;Port=5432;Username=dbo;Password=qbuiTvd34JTGs9X47y89M!k!!;Database=postgresdb;"; ;
 		}
 
 		[Fact]

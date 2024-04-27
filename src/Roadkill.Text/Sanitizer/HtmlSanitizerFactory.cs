@@ -1,4 +1,6 @@
-﻿using Ganss.XSS;
+using System.Linq;
+using Ganss.Xss;
+
 
 namespace Roadkill.Text.Sanitizer
 {
@@ -39,8 +41,27 @@ namespace Roadkill.Text.Sanitizer
 				allowedAttributes = null;
 			}
 
-			var htmlSanitizer = new HtmlSanitizer(allowedTags, null, allowedAttributes);
-			htmlSanitizer.AllowDataAttributes = false;
+			var htmlSanitizer = new HtmlSanitizer()
+			{
+				AllowDataAttributes = false
+			};
+
+			if (allowedTags is not null && allowedTags.Any())
+			{
+				foreach (string allowedTag in allowedTags)
+				{
+					htmlSanitizer.AllowedTags.Add(allowedTag);
+				}
+			}
+
+			if (allowedAttributes is not null && allowedAttributes.Any())
+			{
+				foreach (string allowedAttribute in allowedAttributes)
+				{
+					htmlSanitizer.AllowedAttributes.Add(allowedAttribute);
+				}
+			}
+
 			htmlSanitizer.AllowedAttributes.Add("class");
 			htmlSanitizer.AllowedAttributes.Add("id");
 			htmlSanitizer.AllowedSchemes.Add("mailto");

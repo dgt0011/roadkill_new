@@ -1,5 +1,5 @@
-﻿using System;
-using Elasticsearch.Net;
+using System;
+using Elastic.Clients.Elasticsearch;
 
 namespace Roadkill.Core.Entities
 {
@@ -20,7 +20,7 @@ namespace Roadkill.Core.Entities
 		public string Tags { get; set; }
 	}
 
-	public class SearchablePageResponse : ElasticsearchResponse<SearchablePage>
-	{
-	}
+	//public class SearchablePageResponse : SearchResponse<SearchablePage>
+	//{
+	//}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -164,8 +164,8 @@ namespace Roadkill.Core.Repositories
 		{
 			try
 			{
-				_store.Advanced.Clean.DeleteDocumentsFor(typeof(Page));
-				_store.Advanced.Clean.DeleteDocumentsFor(typeof(PageVersion));
+				_store.Advanced.Clean.DeleteDocumentsByTypeAsync(typeof(Page));
+				_store.Advanced.Clean.DeleteDocumentsByTypeAsync(typeof(PageVersion));
 			}
 			catch (Exception e)
 			{

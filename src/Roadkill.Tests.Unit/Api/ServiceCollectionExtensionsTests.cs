@@ -46,7 +46,7 @@ namespace Roadkill.Tests.Unit.Api
 			AssertInstanceIsNotNull<ITextMiddlewareBuilder>(provider);
 		}
 
-		private static void AssertInstanceIsNotNull<TService>(ServiceProvider provider)
+		private static void AssertInstanceIsNotNull<TService>(ServiceProvider provider) where TService : class
 		{
 			var instance = provider.GetService<TService>();
 			instance.ShouldNotBeNull($"AssertType failed: {typeof(TService).Name} returned null");

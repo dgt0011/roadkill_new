@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,17 +36,20 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 
 		public static Dictionary<string, string> TestConfigValues = new Dictionary<string, string>
 		{
-			{ "Postgres:ConnectionString", "host=localhost;port=5432;database=roadkill;username=roadkill;password=roadkill;" },
+			//{ "Postgres:ConnectionString", "host=localhost;port=5432;database=roadkill;username=roadkill;password=roadkill;" },
+			{ "Postgres:ConnectionString", "Host=192.168.0.234;Port=5432;Username=dbo;Password=qbuiTvd34JTGs9X47y89M!k!!;Database=postgresdb;" },
 			{ "Smtp:Host", "smtp.gmail.com" },
 			{ "Smtp:Port", "587" },
 			{ "Smtp:UseSsl", "true" },
 			{ "Smtp:Username", "bob" },
 			{ "Smtp:Password", "mypassword" },
 			{ "Jwt:Password", "12345678901234567890" },
-			{ "Jwt:JwtExpiresMinutes", "7" }
+			{ "Jwt:ExpiresMinutes", "7" },
+			{ "Jwt:RefreshTokenExpiresDays", "3" }
 		};
 
-		[Fact(Skip = "This is just a data setup test.")]
+		//[Fact(Skip = "This is just a data setup test.")]
+		[Fact]
 		public async Task CreateUsersAndHomepage()
 		{
 			await CreateUsers();
@@ -68,7 +71,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 
 			var manager = provider.GetService<UserManager<RoadkillIdentityUser>>();
 			_documentStore = provider.GetService<IDocumentStore>();
-			_documentStore.Advanced.Clean.CompletelyRemoveAll();
+			await _documentStore.Advanced.Clean.CompletelyRemoveAllAsync();
 
 			await CreateAdminUser(manager);
 			await CreateEditorUser(manager);
@@ -112,46 +115,64 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		{
 			var adminUser = new RoadkillIdentityUser()
 			{
-				UserName = "admin@example.org",
-				Email = "admin@example.org",
+				UserName = "admin@darrentuer.net",
+				Email = "admin@darrentuer.net",
 				EmailConfirmed = true
 			};
-			string password = "Password1234567890";
+			string password = "Qge73kj*GBY@*!MUwfLqCxPQz";
 
-			var result = manager.CreateAsync(adminUser, password).GetAwaiter().GetResult();
-			if (!result.Succeeded)
+			try
 			{
-				string errors = string.Join("\n", result.Errors.ToList().Select(x => x.Description));
-				throw new Exception("Failed to create admin user - " + errors);
+				// var result = manager.CreateAsync(adminUser, password).GetAwaiter().GetResult();
+				var result = await manager.CreateAsync(adminUser, password);
+				if (!result.Succeeded)
+				{
+					string errors = string.Join("\n", result.Errors.ToList().Select(x => x.Description));
+					throw new Exception("Failed to create admin user - " + errors);
+				}
+
+				manager.AddClaimAsync(adminUser, RoadkillClaims.AdminClaim).GetAwaiter()
+					.GetResult();
+
+				_outputHelper.WriteLine("Created admin user with role");
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
 			}
 
-			manager.AddClaimAsync(adminUser, RoadkillClaims.AdminClaim).GetAwaiter()
-				.GetResult();
-
-			_outputHelper.WriteLine("Created admin user with role");
 		}
 
 		private async Task CreateEditorUser(UserManager<RoadkillIdentityUser> manager)
 		{
 			var user = new RoadkillIdentityUser()
 			{
-				UserName = "editor@example.org",
-				Email = "editor@example.org",
+				UserName = "editor@darrentuer.net",
+				Email = "editor@darrentuer.net",
 				EmailConfirmed = true
 			};
-			string password = "Password1234567890";
+			string password = "qbnJyBgG_kkf4KDQPmswJJpEq";
 
-			var result = manager.CreateAsync(user, password).GetAwaiter().GetResult();
-			if (!result.Succeeded)
+			try
 			{
-				string errors = string.Join("\n", result.Errors.ToList().Select(x => x.Description));
-				throw new Exception("Failed to create editor user - " + errors);
+				var result = manager.CreateAsync(user, password).GetAwaiter().GetResult();
+				if (!result.Succeeded)
+				{
+					string errors = string.Join("\n", result.Errors.ToList().Select(x => x.Description));
+					throw new Exception("Failed to create editor user - " + errors);
+				}
+
+				manager.AddClaimAsync(user, RoadkillClaims.EditorClaim).GetAwaiter()
+					.GetResult();
+
+				_outputHelper.WriteLine("Created editor user with role");
 			}
-
-			manager.AddClaimAsync(user, RoadkillClaims.EditorClaim).GetAwaiter()
-				.GetResult();
-
-			_outputHelper.WriteLine("Created editor user with role");
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 		}
 	}
 }
