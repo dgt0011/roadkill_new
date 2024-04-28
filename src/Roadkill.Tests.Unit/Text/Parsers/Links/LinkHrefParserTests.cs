@@ -35,7 +35,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 		public void href_with_dashes_and_23_are_not_encoded()
 		{
 			// Arrange
-			HtmlLinkTag linkTag = new HtmlLinkTag("https://www.google.com/some-page-23", "https://www.google.com/some-page-23", "text", "");
+			var linkTag = new HtmlLinkTag("https://www.google.com/some-page-23", "https://www.google.com/some-page-23", "text", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -48,7 +48,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 		public void href_links_with_the_word_script_in_url_should_not_be_cleaned()
 		{
 			// Arrange - Issue #159 (Bitbucket) (deSCRIPTion)
-			HtmlLinkTag linkTag = new HtmlLinkTag("http://msdn.microsoft.com/en-us/library/system.componentmodel.descriptionattribute.aspx", "http://msdn.microsoft.com/en-us/library/system.componentmodel.descriptionattribute.aspx", "Component description", "");
+			var linkTag = new HtmlLinkTag("http://msdn.microsoft.com/en-us/library/system.componentmodel.descriptionattribute.aspx", "http://msdn.microsoft.com/en-us/library/system.componentmodel.descriptionattribute.aspx", "Component description", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -67,7 +67,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 		public void should_add_external_links_css_class_to_links_and_keep_url(string url)
 		{
 			// Arrange
-			HtmlLinkTag linkTag = new HtmlLinkTag(url, url, "text", "");
+			var linkTag = new HtmlLinkTag(url, url, "text", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -81,7 +81,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 		public void should_not_add_external_link_cssclass_for_anchor_tags()
 		{
 			// Arrange
-			HtmlLinkTag linkTag = new HtmlLinkTag("#my-anchor", "#my-anchor", "text", "");
+			var linkTag = new HtmlLinkTag("#my-anchor", "#my-anchor", "text", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -98,7 +98,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 		{
 			// Arrange
 			string actualPath = $"{prefix}my/folder/image1.jpg";
-			HtmlLinkTag linkTag = new HtmlLinkTag(actualPath, actualPath, "text", "");
+			var linkTag = new HtmlLinkTag(actualPath, actualPath, "text", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -111,7 +111,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 		public void should_use_url_helper_for_special_pages()
 		{
 			// Arrange
-			HtmlLinkTag linkTag = new HtmlLinkTag("Special:blah", "Special:blah", "text", "");
+			var linkTag = new HtmlLinkTag("Special:blah", "Special:blah", "text", "");
 			_urlHelperMock
 				.Content(Arg.Any<string>())
 				.Returns("~/wiki/Special:blah/url-helper");
@@ -127,7 +127,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 		public void links_starting_with_special_should_resolve_as_full_specialpage()
 		{
 			// Arrange
-			HtmlLinkTag linkTag = new HtmlLinkTag("Special:Foo", "Special:Foo", "text", "");
+			var linkTag = new HtmlLinkTag("Special:Foo", "Special:Foo", "text", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -140,7 +140,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 		public void href_external_link_with_anchor_should_retain_anchor()
 		{
 			// Arrange - Issue #172 (Bitbucket)
-			HtmlLinkTag linkTag = new HtmlLinkTag("http://www.google.com/?blah=xyz#myanchor", "http://www.google.com/?blah=xyz#myanchor", "text", "");
+			var linkTag = new HtmlLinkTag("http://www.google.com/?blah=xyz#myanchor", "http://www.google.com/?blah=xyz#myanchor", "text", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -154,7 +154,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 		{
 			// Arrange
 			string pageTitle = "foo page";
-			Page dummyPage = new Page() { Id = 1, Title = pageTitle };
+			var dummyPage = new Page() { Id = 1, Title = pageTitle };
 			dynamic urlValues = new { id = dummyPage.Id, title = "foo-page" };
 
 			_urlHelperMock
@@ -165,7 +165,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 				.GetPageByTitleAsync(pageTitle)
 				.Returns(dummyPage);
 
-			HtmlLinkTag linkTag = new HtmlLinkTag("foo-page?blah=xyz#myanchor", "foo-page?blah=xyz#myanchor", "text", "");
+			var linkTag = new HtmlLinkTag("foo-page?blah=xyz#myanchor", "foo-page?blah=xyz#myanchor", "text", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -178,7 +178,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 		public void href_external_link_with_urlencoded_anchor_should_retain_anchor()
 		{
 			// Arrange - Issue #172 (Bitbucket)
-			HtmlLinkTag linkTag = new HtmlLinkTag("http://www.google.com/?blah=xyz%23myanchor", "http://www.google.com/?blah=xyz%23myanchor", "text", "");
+			var linkTag = new HtmlLinkTag("http://www.google.com/?blah=xyz%23myanchor", "http://www.google.com/?blah=xyz%23myanchor", "text", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -197,12 +197,12 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 				.Returns(expectedHref);
 
 			string pageTitle = "foo";
-			Page dummyPage = new Page() { Id = 1, Title = pageTitle };
+			var dummyPage = new Page() { Id = 1, Title = pageTitle };
 			_pageRepository
 				.GetPageByTitleAsync(pageTitle)
 				.Returns(dummyPage);
 
-			HtmlLinkTag linkTag = new HtmlLinkTag("foo#myanchor", "foo#myanchor", "text", "");
+			var linkTag = new HtmlLinkTag("foo#myanchor", "foo#myanchor", "text", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -221,11 +221,11 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 				.Returns(expectedHref);
 
 			string pageTitle = "foo";
-			Page dummyPage = new Page() { Id = 1, Title = pageTitle };
+			var dummyPage = new Page() { Id = 1, Title = pageTitle };
 			_pageRepository
 				.GetPageByTitleAsync(pageTitle)
 				.Returns(dummyPage);
-			HtmlLinkTag linkTag = new HtmlLinkTag("my-page-on-engineering", "my-page-on-engineering", "text", "");
+			var linkTag = new HtmlLinkTag("my-page-on-engineering", "my-page-on-engineering", "text", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -245,12 +245,12 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 				.Returns(expectedHref);
 
 			string pageTitle = "foo";
-			Page dummyPage = new Page() { Id = 1, Title = pageTitle };
+			var dummyPage = new Page() { Id = 1, Title = pageTitle };
 			_pageRepository
 				.GetPageByTitleAsync(pageTitle)
 				.Returns(dummyPage);
 
-			HtmlLinkTag linkTag = new HtmlLinkTag("football", "foo-page", "text", "");
+			var linkTag = new HtmlLinkTag("football", "foo-page", "text", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -263,7 +263,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 		public void should_add_missing_page_link_css_class_when_internal_link_does_not_exist()
 		{
 			// Arrange
-			HtmlLinkTag linkTag = new HtmlLinkTag("doesnt-exist", "doesnt-exist", "text", "");
+			var linkTag = new HtmlLinkTag("doesnt-exist", "doesnt-exist", "text", "");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);
@@ -282,12 +282,12 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Links
 				.Returns(expectedHref);
 
 			string pageTitle = "foo";
-			Page dummyPage = new Page() { Id = 1, Title = pageTitle };
+			var dummyPage = new Page() { Id = 1, Title = pageTitle };
 			_pageRepository
 				.GetPageByTitleAsync(pageTitle)
 				.Returns(dummyPage);
 
-			HtmlLinkTag linkTag = new HtmlLinkTag("despair", "", "text", "new");
+			var linkTag = new HtmlLinkTag("despair", "", "text", "new");
 
 			// Act
 			HtmlLinkTag actualTag = _linkHrefParser.Parse(linkTag);

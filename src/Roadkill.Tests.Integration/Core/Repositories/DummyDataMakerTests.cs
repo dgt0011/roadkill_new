@@ -4,7 +4,6 @@ using AutoFixture;
 using Marten;
 using Roadkill.Core.Entities;
 using Roadkill.Core.Repositories;
-using Xunit;
 using Xunit.Abstractions;
 
 namespace Roadkill.Tests.Integration.Core.Repositories

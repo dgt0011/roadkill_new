@@ -3,7 +3,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using NSubstitute;
-using Roadkill.Api.Authorization;
 using Roadkill.Api.Authorization.Policies;
 using Roadkill.Api.Authorization.Roles;
 using Shouldly;
@@ -81,13 +80,13 @@ namespace Roadkill.Tests.Unit.Api.Authorization
 			return new RoadkillPolicyRequirement(policyName);
 		}
 
-		private ClaimsPrincipal CreateClaimsPrincipal(string roleName)
+		private static ClaimsPrincipal CreateClaimsPrincipal(string roleName)
 		{
 			var claims = new List<Claim>()
 			{
-				new Claim(ClaimTypes.Role, roleName)
+				new(ClaimTypes.Role, roleName)
 			};
-			var claimsIdentities = new List<ClaimsIdentity> {new ClaimsIdentity(claims)};
+			var claimsIdentities = new List<ClaimsIdentity> {new(claims)};
 			return new ClaimsPrincipal(claimsIdentities);
 		}
 	}

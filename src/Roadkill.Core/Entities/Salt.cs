@@ -13,7 +13,7 @@ namespace Roadkill.Core.Entities
 	/// </remarks>
 	public class Salt
 	{
-		private static readonly Random _random = new Random();
+		private static readonly Random _random = new();
 
 		public string Value { get; }
 

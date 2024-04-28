@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AutoFixture;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
-using Roadkill.Api.Authorization;
 using Roadkill.Api.Authorization.Policies;
 using Roadkill.Api.Controllers;
 using Roadkill.Text.Models;

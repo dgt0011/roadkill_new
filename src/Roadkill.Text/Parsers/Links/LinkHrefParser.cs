@@ -18,9 +18,9 @@ namespace Roadkill.Text.Parsers.Links
 	/// </summary>
 	public class LinkHrefParser
 	{
-		private static readonly Regex _querystringRegex = new Regex("(?<querystring>(\\?).+)", RegexOptions.IgnoreCase);
+		private static readonly Regex _querystringRegex = new("(?<querystring>(\\?).+)", RegexOptions.IgnoreCase);
 
-		private static readonly Regex _anchorRegex = new Regex("(?<hash>(#|%23).+)", RegexOptions.IgnoreCase);
+		private static readonly Regex _anchorRegex = new("(?<hash>(#|%23).+)", RegexOptions.IgnoreCase);
 
 		private readonly IPageRepository _pageRepository;
 
@@ -29,7 +29,7 @@ namespace Roadkill.Text.Parsers.Links
 		// TODO: NETStandard - replace urlhelper to IUrlHelper
 		private readonly IUrlHelper _urlHelper;
 
-		private readonly List<string> _externalLinkPrefixes = new List<string>()
+		private readonly List<string> _externalLinkPrefixes = new()
 		{
 			"http://",
 			"https://",
@@ -191,7 +191,7 @@ namespace Roadkill.Text.Parsers.Links
 			if (page != null)
 			{
 				string encodedTitle = EncodePageTitle(page.Title);
-				UrlActionContext actionContext = new UrlActionContext()
+				var actionContext = new UrlActionContext()
 				{
 					Action = "Index",
 					Controller = "Wiki",
@@ -204,7 +204,7 @@ namespace Roadkill.Text.Parsers.Links
 			else
 			{
 				// e.g. /pages/new?title=xyz
-				UrlActionContext actionContext = new UrlActionContext()
+				var actionContext = new UrlActionContext()
 				{
 					Action = "New",
 					Controller = "Pages",

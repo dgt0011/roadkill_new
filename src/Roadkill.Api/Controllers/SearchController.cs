@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Roadkill.Api.Authorization;
 using Roadkill.Api.Authorization.Roles;
 using Roadkill.Api.Common.Request;
 using Roadkill.Api.Common.Response;

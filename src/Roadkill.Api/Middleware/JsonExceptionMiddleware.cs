@@ -44,11 +44,9 @@ namespace Roadkill.Api.Middleware
 
 			context.Response.ContentType = "application/json";
 
-			using (var writer = new StreamWriter(context.Response.Body))
-			{
-				new JsonSerializer().Serialize(writer, error);
-				await writer.FlushAsync().ConfigureAwait(false);
-			}
+			using var writer = new StreamWriter(context.Response.Body);
+			new JsonSerializer().Serialize(writer, error);
+			await writer.FlushAsync().ConfigureAwait(false);
 		}
 
 		private class ErrorDetails

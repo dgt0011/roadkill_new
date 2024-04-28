@@ -79,7 +79,7 @@ namespace Roadkill.Tests.Unit.Core.Search.Parsers
 			queryResult.Fields.Count().ShouldBe(2);
 		}
 
-		private SearchQueryParser CreateParser()
+		private static SearchQueryParser CreateParser()
 		{
 			return new SearchQueryParser();
 		}

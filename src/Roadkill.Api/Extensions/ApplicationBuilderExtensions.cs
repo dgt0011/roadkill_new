@@ -27,7 +27,7 @@ namespace Roadkill.Api.Extensions
 						})
 					};
 
-					var json = JsonConvert.SerializeObject(statusObject);
+					string json = JsonConvert.SerializeObject(statusObject);
 					context.Response.ContentType = MediaTypeNames.Application.Json;
 					await context.Response.WriteAsync(json);
 				}

@@ -27,8 +27,13 @@ namespace Roadkill.Text.Parsers.Links.Converters
 
 		public HtmlLinkTag Convert(HtmlLinkTag htmlLinkTag)
 		{
+			if (htmlLinkTag == null)
+			{
+				return null;
+			}
+
 			string href = htmlLinkTag.OriginalHref;
-			string upperHref = href?.ToUpperInvariant();
+			string upperHref = href?.ToUpperInvariant() ?? ""; 
 
 			if (!upperHref.StartsWith("SPECIAL:", StringComparison.Ordinal))
 			{

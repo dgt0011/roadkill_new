@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoFixture;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
-using Roadkill.Api.Authorization;
 using Roadkill.Api.Authorization.Policies;
 using Roadkill.Api.Common.Request;
 using Roadkill.Api.Common.Response;
@@ -166,7 +165,7 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 		public async Task FindHomePage_should_return_first_page_with_homepage_tag()
 		{
 			// given
-			List<Page> pages = _fixture.CreateMany<Page>(10).ToList();
+			var pages = _fixture.CreateMany<Page>(10).ToList();
 			for (int i = 0; i < pages.Count; i++)
 			{
 				pages[i].Tags += ", homepage";

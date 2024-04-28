@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,12 +32,12 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 		public async Task ExportToXml()
 		{
 			// given
-			List<Page> actualPages = _fixture.CreateMany<Page>().ToList();
+			var actualPages = _fixture.CreateMany<Page>().ToList();
 
 			_pageRepositoryMock.AllPagesAsync()
 				.Returns(actualPages);
 
-			XmlSerializer serializer = new XmlSerializer(typeof(List<Page>));
+			var serializer = new XmlSerializer(typeof(List<Page>));
 
 			// when
 			ActionResult<string> actionResult = await _exportController.ExportPagesToXml();
@@ -47,7 +47,7 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 
 			string actualXml = actionResult.GetOkObjectResultValue();
 			var deserializedPages = serializer.Deserialize(new StringReader(actualXml)) as List<Page>;
-			deserializedPages.Count.ShouldBe(actualPages.Count());
+			deserializedPages.Count.ShouldBe(actualPages.Count);
 		}
 	}
 }

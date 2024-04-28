@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
@@ -39,7 +39,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void DeleteAllUsers_should_clear_every_user()
+		public async System.Threading.Tasks.Task DeleteAllUsers_should_clear_every_user()
 		{
 			// given
 			User adminUser = _fixture.Build<User>()
@@ -74,11 +74,11 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void DeleteUser_should_delete_single_user()
+		public async System.Threading.Tasks.Task DeleteUser_should_delete_single_user()
 		{
 			// given
 			UserRepository repository = CreateRepository();
-			List<User> remainingUsers = _fixture.CreateMany<User>().ToList();
+			var remainingUsers = _fixture.CreateMany<User>().ToList();
 			remainingUsers.ForEach(async u =>
 			{
 				await repository.SaveOrUpdateUserAsync(u);
@@ -104,10 +104,10 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void FindAllEditors_should_return_editors_only()
+		public async System.Threading.Tasks.Task FindAllEditors_should_return_editors_only()
 		{
 			// given
-			List<User> editorUsers = _fixture.Build<User>()
+			var editorUsers = _fixture.Build<User>()
 													.With(x => x.IsAdmin, false)
 													.With(x => x.IsEditor, true)
 													.CreateMany()
@@ -129,10 +129,10 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void FindAllAdmins_should_return_admins_only()
+		public async System.Threading.Tasks.Task FindAllAdmins_should_return_admins_only()
 		{
 			// given
-			List<User> adminUsers = _fixture.Build<User>()
+			var adminUsers = _fixture.Build<User>()
 											.With(x => x.IsAdmin, true)
 											.With(x => x.IsEditor, false)
 											.CreateMany()
@@ -149,11 +149,11 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 			IEnumerable<User> actualAdmins = await repository.FindAllAdminsAsync();
 
 			// then
-			actualAdmins.Count().ShouldBe(adminUsers.Count());
+			actualAdmins.Count().ShouldBe(adminUsers.Count);
 		}
 
 		[Fact]
-		public async void GetAdminById_should_return_admin_user()
+		public async System.Threading.Tasks.Task GetAdminById_should_return_admin_user()
 		{
 			// given
 			UserRepository repository = CreateRepository();
@@ -174,7 +174,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void GetUserByActivationKey_should_return_user()
+		public async System.Threading.Tasks.Task GetUserByActivationKey_should_return_user()
 		{
 			// given
 			UserRepository repository = CreateRepository();
@@ -190,7 +190,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void GetEditorById_should_return_editor_only()
+		public async System.Threading.Tasks.Task GetEditorById_should_return_editor_only()
 		{
 			// given
 			UserRepository repository = CreateRepository();
@@ -212,7 +212,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		[Theory]
 		[InlineData(true)]
 		[InlineData(false)]
-		public async void GetUserByEmail_should_return_user(bool isActivated)
+		public async System.Threading.Tasks.Task GetUserByEmail_should_return_user(bool isActivated)
 		{
 			// given
 			UserRepository repository = CreateRepository();
@@ -233,7 +233,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		[Theory]
 		[InlineData(true)]
 		[InlineData(false)]
-		public async void GetUserById_should_return_user(bool isActivated)
+		public async System.Threading.Tasks.Task GetUserById_should_return_user(bool isActivated)
 		{
 			// given
 			UserRepository repository = CreateRepository();
@@ -252,7 +252,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void GetUserByPasswordResetKey_should_return_user()
+		public async System.Threading.Tasks.Task GetUserByPasswordResetKey_should_return_user()
 		{
 			// given
 			UserRepository repository = CreateRepository();
@@ -269,7 +269,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void GetUserByUsername_should_return_user()
+		public async System.Threading.Tasks.Task GetUserByUsername_should_return_user()
 		{
 			// given
 			UserRepository repository = CreateRepository();
@@ -286,7 +286,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void GetUserByUsernameOrEmail_should_return_user()
+		public async System.Threading.Tasks.Task GetUserByUsernameOrEmail_should_return_user()
 		{
 			// given
 			UserRepository repository = CreateRepository();
@@ -303,7 +303,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void SaveOrUpdateUser_should_create_new_user()
+		public async System.Threading.Tasks.Task SaveOrUpdateUser_should_create_new_user()
 		{
 			// given
 			UserRepository repository = CreateRepository();
@@ -318,7 +318,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void SaveOrUpdateUser_should_update_user()
+		public async System.Threading.Tasks.Task SaveOrUpdateUser_should_update_user()
 		{
 			// given
 			UserRepository repository = CreateRepository();

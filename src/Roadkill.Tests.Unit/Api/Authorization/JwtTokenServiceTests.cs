@@ -126,7 +126,7 @@ namespace Roadkill.Tests.Unit.Api.Authorization
 		}
 
 		[Fact]
-		public async Task should_get_jwt_token()
+		public void should_get_jwt_token()
 		{
 			// given
 			string currentJwtToken = "jwt token";

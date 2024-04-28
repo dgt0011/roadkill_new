@@ -1,10 +1,8 @@
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Roadkill.Api.Authorization;
 using Roadkill.Api.Authorization.JWT;
 using Roadkill.Core.Entities.Authorization;
 

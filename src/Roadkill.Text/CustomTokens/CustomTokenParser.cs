@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -88,19 +88,17 @@ namespace Roadkill.Text.CustomTokens
 
 			try
 			{
-				using (FileStream stream = new FileStream(settings.CustomTokensPath, FileMode.Open, FileAccess.Read))
-				{
-					XmlSerializer serializer = new XmlSerializer(typeof(List<TextToken>));
-					IEnumerable<TextToken> textTokens = (List<TextToken>)serializer.Deserialize(stream);
+				using var stream = new FileStream(settings.CustomTokensPath, FileMode.Open, FileAccess.Read);
+				var serializer = new XmlSerializer(typeof(List<TextToken>));
+				IEnumerable<TextToken> textTokens = (List<TextToken>)serializer.Deserialize(stream);
 
-					if (textTokens == null)
-					{
-						return new List<TextToken>();
-					}
-					else
-					{
-						return textTokens;
-					}
+				if (textTokens == null)
+				{
+					return new List<TextToken>();
+				}
+				else
+				{
+					return textTokens;
 				}
 			}
 			catch (IOException e)

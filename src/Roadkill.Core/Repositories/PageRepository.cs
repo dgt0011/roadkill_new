@@ -46,118 +46,96 @@ namespace Roadkill.Core.Repositories
 		{
 			page.Id = 0; // reset so it's autoincremented
 
-			using (var session = _store.LightweightSession())
-			{
-				session.Store(page);
+			await using var session = _store.LightweightSession();
+			session.Store(page);
 
-				await session.SaveChangesAsync();
-				return page;
-			}
+			await session.SaveChangesAsync();
+			return page;
 		}
 
 		public async Task<IEnumerable<Page>> AllPagesAsync()
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<Page>()
-					.ToListAsync();
-			}
+			await using var session = _store.QuerySession();
+			return await session
+				.Query<Page>()
+				.ToListAsync();
 		}
 
 		public async Task<IEnumerable<string>> AllTagsAsync()
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<Page>()
-					.Select(x => x.Tags)
-					.ToListAsync();
-			}
+			await using var session = _store.QuerySession();
+			return await session
+				.Query<Page>()
+				.Select(x => x.Tags)
+				.ToListAsync();
 		}
 
 		public async Task DeletePageAsync(int pageId)
 		{
-			using (var session = _store.LightweightSession())
-			{
-				session.Delete<Page>(pageId);
-				await session.SaveChangesAsync();
-			}
+			await using var session = _store.LightweightSession();
+			session.Delete<Page>(pageId);
+			await session.SaveChangesAsync();
 		}
 
 		public async Task DeleteAllPagesAsync()
 		{
-			using (var session = _store.LightweightSession())
-			{
-				session.DeleteWhere<Page>(x => true);
-				session.DeleteWhere<PageVersion>(x => true);
+			await using var session = _store.LightweightSession();
+			session.DeleteWhere<Page>(x => true);
+			session.DeleteWhere<PageVersion>(x => true);
 
-				await session.SaveChangesAsync();
-			}
+			await session.SaveChangesAsync();
 		}
 
 		public async Task<IEnumerable<Page>> FindPagesCreatedByAsync(string username)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<Page>()
-					.Where(x => x.CreatedBy.Equals(username, StringComparison.CurrentCultureIgnoreCase))
-					.ToListAsync();
-			}
+			await using var session = _store.QuerySession();
+			return await session
+				.Query<Page>()
+				.Where(x => x.CreatedBy.Equals(username, StringComparison.CurrentCultureIgnoreCase))
+				.ToListAsync();
 		}
 
 		public async Task<IEnumerable<Page>> FindPagesLastModifiedByAsync(string username)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<Page>()
-					.Where(x => x.LastModifiedBy.Equals(username, StringComparison.CurrentCultureIgnoreCase))
-					.ToListAsync();
-			}
+			await using var session = _store.QuerySession();
+			return await session
+				.Query<Page>()
+				.Where(x => x.LastModifiedBy.Equals(username, StringComparison.CurrentCultureIgnoreCase))
+				.ToListAsync();
 		}
 
 		public async Task<IEnumerable<Page>> FindPagesContainingTagAsync(string tag)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<Page>()
-					.Where(x => x.Tags.Contains(tag))
-					.ToListAsync();
-			}
+			await using var session = _store.QuerySession();
+			return await session
+				.Query<Page>()
+				.Where(x => x.Tags.Contains(tag))
+				.ToListAsync();
 		}
 
 		public async Task<Page> GetPageByIdAsync(int id)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<Page>()
-					.FirstOrDefaultAsync(x => x.Id == id);
-			}
+			await using var session = _store.QuerySession();
+			return await session
+				.Query<Page>()
+				.FirstOrDefaultAsync(x => x.Id == id);
 		}
 
 		public async Task<Page> GetPageByTitleAsync(string title)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<Page>()
-					.FirstOrDefaultAsync(x => x.Title == title);
-			}
+			await using var session = _store.QuerySession();
+			return await session
+				.Query<Page>()
+				.FirstOrDefaultAsync(x => x.Title == title);
 		}
 
 		public async Task<Page> UpdateExistingAsync(Page page)
 		{
-			using (var session = _store.LightweightSession())
-			{
-				session.Update(page);
+			await using var session = _store.LightweightSession();
+			session.Update(page);
 
-				await session.SaveChangesAsync();
-				return page;
-			}
+			await session.SaveChangesAsync();
+			return page;
 		}
 
 		public void Wipe()

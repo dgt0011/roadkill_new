@@ -1,5 +1,4 @@
 using AutoMapper;
-using Roadkill.Api.Common.Request;
 using Roadkill.Api.Common.Response;
 using Roadkill.Core.Entities.Authorization;
 

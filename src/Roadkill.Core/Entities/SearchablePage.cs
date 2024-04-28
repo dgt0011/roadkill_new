@@ -1,5 +1,4 @@
 using System;
-using Elastic.Clients.Elasticsearch;
 
 namespace Roadkill.Core.Entities
 {

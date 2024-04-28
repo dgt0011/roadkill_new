@@ -1,11 +1,11 @@
-﻿using Roadkill.Text.Models;
+using Roadkill.Text.Models;
 using Roadkill.Text.Parsers;
 
 namespace Roadkill.Text.TextMiddleware
 {
 	public class MarkupParserMiddleware : Middleware
 	{
-		private IMarkupParser _parser;
+		private readonly IMarkupParser _parser;
 
 		public MarkupParserMiddleware(IMarkupParser parser)
 		{

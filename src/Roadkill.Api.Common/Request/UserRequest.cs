@@ -1,5 +1,3 @@
-using AutoMapper;
-
 namespace Roadkill.Api.Common.Request
 {
 	public class UserRequest
