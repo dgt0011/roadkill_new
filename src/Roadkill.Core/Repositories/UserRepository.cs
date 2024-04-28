@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -129,9 +129,14 @@ namespace Roadkill.Core.Repositories
 		{
 			using (var session = _store.QuerySession())
 			{
+				// default to searching for activated users
+				if (isActivated is null)
+				{
+					isActivated = true;
+				}
 				return await session
 					.Query<User>()
-					.FirstOrDefaultAsync(x => x.Id == id && x.IsActivated == (isActivated ?? true));
+					.FirstOrDefaultAsync(x => x.Id == id && x.IsActivated == isActivated);
 			}
 		}
 
@@ -178,7 +183,7 @@ namespace Roadkill.Core.Repositories
 		{
 			try
 			{
-				_store.Advanced.Clean.DeleteDocumentsFor(typeof(User));
+				_store.Advanced.Clean.DeleteDocumentsByTypeAsync(typeof(User));
 			}
 			catch (Exception e)
 			{

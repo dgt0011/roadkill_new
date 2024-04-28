@@ -1,26 +1,23 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using AutoMapper;
+using Asp.Versioning;
 using MailKit;
 using MailKit.Net.Smtp;
 using Marten.AspNetIdentity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using NSwag;
-using NSwag.Generation.Processors.Security;
-using Roadkill.Api.Authorization;
 using Roadkill.Api.Authorization.JWT;
 using Roadkill.Api.Authorization.Policies;
 using Roadkill.Api.Authorization.Roles;
 using Roadkill.Api.Settings;
+using Roadkill.Api.Swagger;
 using Roadkill.Core.Entities.Authorization;
 using Roadkill.Core.Extensions;
 using Roadkill.Core.Repositories;
@@ -28,6 +25,7 @@ using Roadkill.Text;
 using Roadkill.Text.Sanitizer;
 using Roadkill.Text.TextMiddleware;
 using Scrutor;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using AdminRoleDefinition = Roadkill.Api.Authorization.Roles.AdminRoleDefinition;
 using EditorRoleDefinition = Roadkill.Api.Authorization.Roles.EditorRoleDefinition;
 
@@ -38,7 +36,7 @@ namespace Roadkill.Api.Extensions
 		public static IServiceCollection ScanAndRegisterApi(this IServiceCollection services)
 		{
 			services.Scan(scan => scan
-				.FromAssemblyOf<Startup>()
+				.FromAssemblyOf<JwtSettings>()
 				.AddClasses()
 				.UsingRegistrationStrategy(RegistrationStrategy.Skip)
 				.AsMatchingInterface()
@@ -166,43 +164,29 @@ namespace Roadkill.Api.Extensions
 		{
 			services
 				.AddMvcCore()
-				.AddDataAnnotations()
-				.AddApiExplorer()
-				.SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+				.AddDataAnnotations();
 
-			services
-				.AddVersionedApiExplorer(options =>
-				{
-					options.SubstituteApiVersionInUrl = true;
-					options.GroupNameFormat = "VVV";
-				});
+			services.AddControllers();
 
 			services.AddApiVersioning(options =>
-			{
-				options.ApiVersionReader = new UrlSegmentApiVersionReader();
-				options.AssumeDefaultVersionWhenUnspecified = true;
-			});
+				{
+					options.ReportApiVersions = true;
+					options.ApiVersionReader = new UrlSegmentApiVersionReader();
+					options.AssumeDefaultVersionWhenUnspecified = true;
+				})
+				.AddMvc()
+				.AddApiExplorer(options =>
+				{
+					options.GroupNameFormat = "'v'VVV";
+					options.SubstituteApiVersionInUrl = true;
+				});
+
+			services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+			services.AddSwaggerGen(options => options.OperationFilter<SwaggerDefaultValues>());
 
 			services.AddOpenApiDocument(document =>
 			{
-				// Add an authenticate button to Swagger for JWT tokens
-				document.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT"));
-				var swaggerSecurityScheme = new OpenApiSecurityScheme()
-				{
-					Type = OpenApiSecuritySchemeType.ApiKey,
-					Name = "Authorization",
-					In = OpenApiSecurityApiKeyLocation.Header,
-					Description = "Type into the textbox: Bearer {your JWT token}. You can get a JWT token from /Authorization/Authenticate."
-				};
-
-				document.ApiGroupNames = new[] { "3" };
 				document.DocumentName = "v3";
-				document.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT", swaggerSecurityScheme));
-				document.PostProcess = d =>
-				{
-					d.Info.Title = "Roadkill API";
-					d.Info.Version = "3.0";
-				};
 			});
 
 			return services;
@@ -210,7 +194,7 @@ namespace Roadkill.Api.Extensions
 
 		public static IServiceCollection AddAutoMapperForApi(this IServiceCollection services)
 		{
-			services.AddAutoMapper(typeof(Startup));
+			services.AddAutoMapper(typeof(JwtSettings));
 			return services;
 		}
 	}

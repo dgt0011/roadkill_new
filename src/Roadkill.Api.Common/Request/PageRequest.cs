@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
-using Nest;
+
 
 namespace Roadkill.Api.Common.Request
 {

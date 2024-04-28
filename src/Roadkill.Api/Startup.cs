@@ -1,4 +1,3 @@
-﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -55,7 +54,9 @@ namespace Roadkill.Api
 			services.AddMarkdown();
 			services.AddJwtDefaults(_configuration, _logger);
 			services.AddIdentityDefaults();
+
 			services.AddMvcAndVersionedSwagger();
+
 			services
 				.AddHealthChecks()
 				.AddCheck<MartenHealthCheck>("marten");
@@ -73,6 +74,7 @@ namespace Roadkill.Api
 			app.UseRouting();
 			app.UseAuthentication();
 			app.UseAuthorization();
+
 			app.UseCors("localhost");
 
 			app.UseSwaggerWithReverseProxySupport();

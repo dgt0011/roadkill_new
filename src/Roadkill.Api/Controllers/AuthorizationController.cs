@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -87,7 +88,7 @@ namespace Roadkill.Api.Controllers
 			return StatusCode(StatusCodes.Status404NotFound);
 		}
 
-		private async Task<AuthorizationResponse> CreateNewJwtAndStoreWithRefreshToken(string refreshToken, string email, List<Claim> existingClaims)
+		private async Task<AuthorizationResponse> CreateNewJwtAndStoreWithRefreshToken(string refreshToken, string email, IList<Claim> existingClaims)
 		{
 			string ip = GetIpAddress();
 			string jwtToken = _jwtTokenService.CreateJwtToken(existingClaims, email);

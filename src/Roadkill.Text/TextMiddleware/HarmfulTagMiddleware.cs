@@ -1,4 +1,4 @@
-﻿using Ganss.XSS;
+using Ganss.Xss;
 using Roadkill.Text.Models;
 using Roadkill.Text.Sanitizer;
 

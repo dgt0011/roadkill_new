@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.IO;
 using Marten;
 using Roadkill.Core.Entities;
+using Weasel.Core;
 using Xunit.Abstractions;
 
 namespace Roadkill.Tests.Integration.Core.Repositories
@@ -11,13 +12,13 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 	{
 		private static readonly ConcurrentDictionary<string, IDocumentStore> _documentStores = new ConcurrentDictionary<string, IDocumentStore>();
 
-		public static string ConnectionString = "host=localhost;port=5432;database=roadkilltests;username=roadkill;password=roadkill;";
+		public static string ConnectionString = "host=localhost;port=5432;database=postgres;username=roadkill;password=roadkill;";
 
 		private static void UpdateConnectionForGoogleCloudBuild()
 		{
 			if (Directory.GetCurrentDirectory().Contains("/workspace/"))
 			{
-				ConnectionString = "host=roadkill-postgres;port=5432;database=roadkilltests;username=roadkill;password=roadkill;";
+				ConnectionString = "host=roadkill-postgres;port=5432;database=postgres;username=roadkill;password=roadkill;";
 			}
 		}
 

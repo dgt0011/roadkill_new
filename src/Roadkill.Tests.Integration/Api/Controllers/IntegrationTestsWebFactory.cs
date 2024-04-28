@@ -25,14 +25,15 @@ namespace Roadkill.Tests.Integration.Api.Controllers
 	{
 		public static Dictionary<string, string> TestConfigValues = new Dictionary<string, string>
 		{
-			{ "Postgres:ConnectionString", "host=localhost;port=5432;database=roadkilltests;username=roadkill;password=roadkill;" },
+			{ "Postgres:ConnectionString", "host=localhost;port=5432;database=postgres;username=roadkill;password=roadkill;" },
 			{ "Smtp:Host", "smtp.gmail.com" },
 			{ "Smtp:Port", "587" },
 			{ "Smtp:UseSsl", "true" },
 			{ "Smtp:Username", "bob" },
 			{ "Smtp:Password", "mypassword" },
-			{ "Jwt:Password", "12345678901234567890" },
-			{ "Jwt:ExpiresMinutes", "7" }
+			{ "Jwt:Password", "12345678901234567890123456789012" },
+			{ "Jwt:ExpiresMinutes", "7" },
+			{ "Jwt:RefreshTokenExpiresDays", "3" }
 		};
 
 		public ILogger<IDocumentStore> Logger { get; set; }
@@ -92,7 +93,7 @@ namespace Roadkill.Tests.Integration.Api.Controllers
 				Logger.LogInformation($"Found {count} Pages");
 			}
 
-			documentStore.Advanced.Clean.DeleteAllDocuments();
+			documentStore.Advanced.Clean.DeleteAllDocumentsAsync();
 
 			// Create two users
 			var manager = provider.GetService<UserManager<RoadkillIdentityUser>>();

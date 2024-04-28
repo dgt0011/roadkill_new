@@ -9,6 +9,15 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.cs]
+
+# CA1707: Identifiers should not contain underscores
+#         All tests have underscores in their names and are all lowercase
+dotnet_diagnostic.CA1707.severity = none
+
+# CA2007: Consider calling ConfigureAwait on the awaited task
+#         Temporarily remove to clarify other issues/errors
+dotnet_diagnostic.CA2007.severity = none
+
 # Sort using and Import directives with System.* appearing first
 dotnet_sort_system_directives_first = true
 

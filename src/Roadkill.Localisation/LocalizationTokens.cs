@@ -35,6 +35,8 @@ namespace Roadkill.Localisation
 
 		public static string ReplaceAdExplorer(string text)
 		{
+			if (string.IsNullOrEmpty(text)) return text;
+
 			text = text.Replace(ADEXPLORERSTART, ADEXPLORER_REPLACEMENT);
 			text = text.Replace(ADEXPLORER_END, END_ANCHOR);
 			return text;
@@ -42,19 +44,26 @@ namespace Roadkill.Localisation
 
 		public static string ReplaceRecaptcha(string text)
 		{
+			if (string.IsNullOrEmpty(text)) return text;
+
 			text = text.Replace(RECAPTCHA_START, RECAPTCHA_REPLACEMENT);
 			text = text.Replace(RECAPTCHA_END, END_ANCHOR);
+
 			return text;
 		}
 
 		public static string ReplaceMenuTokens(string text)
 		{
+			if (string.IsNullOrEmpty(text)) return text;
+
 			text = text.Replace(MENU_TOKENS, MENU_TOKENS_REPLACEMENT);
 			return text;
 		}
 
 		public static string ReplaceHtmlTokens(string text)
 		{
+			if (string.IsNullOrEmpty(text)) return text;
+
 			text = text.Replace(BOLD_START, "<b>");
 			text = text.Replace(BOLD_END, "</b>");
 			text = text.Replace(BR, "<br/>");
@@ -63,6 +72,8 @@ namespace Roadkill.Localisation
 
 		public static string ReplaceHeadToken(string text)
 		{
+			if (string.IsNullOrEmpty(text)) return text;
+
 			text = text.Replace(HEAD, "&lt;head&gt;");
 			return text;
 		}

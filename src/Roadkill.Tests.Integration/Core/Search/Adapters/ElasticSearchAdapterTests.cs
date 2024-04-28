@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
-using Elasticsearch.Net;
-using Nest;
+using Elastic.Clients.Elasticsearch;
+//using Elasticsearch.Net;
+//using Nest;
 using Roadkill.Core.Entities;
 using Roadkill.Core.Search.Adapters;
 using Shouldly;
@@ -48,9 +49,14 @@ namespace Roadkill.Tests.Integration.Core.Search.Adapters
 			_classFixture = classFixture;
 
 			var uri = new Uri("http://localhost:9200");
-			var connectionPool = new StaticConnectionPool(new List<Node>() { uri });
-			var connectionSettings = new ConnectionSettings(connectionPool);
-			var elasticClient = new ElasticClient(connectionSettings);
+
+			//var connectionPool = new StaticConnectionPool(new List<Node>() { uri });
+			//var connectionSettings = new ConnectionSettings(connectionPool);
+			//var elasticClient = new ElasticClient(connectionSettings);
+
+			var settings = new ElasticsearchClientSettings(uri);
+			var elasticClient = new ElasticsearchClient(settings);
+
 			_searchAdapter = new ElasticSearchAdapter(elasticClient);
 			_testPages = classFixture.TestPages;
 		}

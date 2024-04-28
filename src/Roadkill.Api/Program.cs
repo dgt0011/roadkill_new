@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Serilog;
@@ -24,9 +24,12 @@ namespace Roadkill.Api
 
 		public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 		{
+			//var host = WebHost.CreateDefaultBuilder(args)
+			//	.UseStartup<Startup>()
+			//	.UseSerilog();
+
 			var host = WebHost.CreateDefaultBuilder(args)
-				.UseStartup<Startup>()
-				.UseSerilog();
+				.UseStartup<Startup>();
 
 			return host;
 		}

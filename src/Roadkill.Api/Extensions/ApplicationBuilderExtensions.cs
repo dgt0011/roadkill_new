@@ -1,11 +1,9 @@
-using System;
 using System.Linq;
 using System.Net.Mime;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Newtonsoft.Json;
 using Roadkill.Api.Middleware;
 
@@ -52,14 +50,17 @@ namespace Roadkill.Api.Extensions
 
 		public static IApplicationBuilder UseSwaggerWithReverseProxySupport(this IApplicationBuilder app)
 		{
-			app.UseSwagger(config => config.PostProcess = (document, request) =>
-			{
-				string pathBase = request.Headers["X-Forwarded-PathBase"].FirstOrDefault();
-				document.BasePath = pathBase;
-				document.Host = request.Headers["X-Forwarded-Host"].FirstOrDefault();
-			});
+			//TODO: Fix
+			//app.UseSwagger(config => config.PostProcess = (document, request) =>
+			//{
+			//	string pathBase = request.Headers["X-Forwarded-PathBase"].FirstOrDefault();
+			//	document.BasePath = pathBase;
+			//	document.Host = request.Headers["X-Forwarded-Host"].FirstOrDefault();
+			//});
 
-			app.UseSwaggerUi3(settings =>
+			app.UseSwagger();
+
+			app.UseSwaggerUi(settings =>
 			{
 				settings.TransformToExternalPath = (route, request) =>
 				{
