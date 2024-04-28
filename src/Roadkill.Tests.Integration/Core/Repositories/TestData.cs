@@ -42,7 +42,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 			{ "Smtp:UseSsl", "true" },
 			{ "Smtp:Username", "bob" },
 			{ "Smtp:Password", "mypassword" },
-			{ "Jwt:Password", "12345678901234567890" },
+			{ "Jwt:Password", "12345678901234567890123456789012" },
 			{ "Jwt:ExpiresMinutes", "7" },
 			{ "Jwt:RefreshTokenExpiresDays", "3" }
 		};
