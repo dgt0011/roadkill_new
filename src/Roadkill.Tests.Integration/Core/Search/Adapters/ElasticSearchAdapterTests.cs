@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
 using Elastic.Clients.Elasticsearch;
-//using Elasticsearch.Net;
-//using Nest;
 using Roadkill.Core.Entities;
 using Roadkill.Core.Search.Adapters;
 using Shouldly;

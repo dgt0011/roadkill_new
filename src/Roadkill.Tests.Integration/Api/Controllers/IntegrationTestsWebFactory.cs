@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Claims;
 using Marten;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -11,9 +10,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.TestPlatform.Common;
 using Roadkill.Api;
-using Roadkill.Api.Authorization;
 using Roadkill.Api.Authorization.JWT;
 using Roadkill.Core.Entities;
 using Roadkill.Core.Entities.Authorization;
@@ -23,7 +20,7 @@ namespace Roadkill.Tests.Integration.Api.Controllers
 {
 	public class IntegrationTestsWebFactory : WebApplicationFactory<Startup>
 	{
-		public static Dictionary<string, string> TestConfigValues = new Dictionary<string, string>
+		public static Dictionary<string, string> TestConfigValues = new()
 		{
 			{ "Postgres:ConnectionString", "host=localhost;port=5432;database=postgres;username=roadkill;password=roadkill;" },
 			{ "Smtp:Host", "smtp.gmail.com" },

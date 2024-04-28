@@ -1,10 +1,8 @@
 using System.Threading.Tasks;
 using Asp.Versioning;
 using MailKit;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
-using Roadkill.Api.Authorization;
 using Roadkill.Api.Authorization.Roles;
 using Roadkill.Core.Settings;
 

@@ -30,7 +30,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Images
 		public void should_ignore_urls_starting_with_ww_http_and_https(string imageUrl)
 		{
 			// Arrange
-			HtmlImageTag htmlImageTag = new HtmlImageTag(imageUrl, imageUrl, "alt", "title");
+			var htmlImageTag = new HtmlImageTag(imageUrl, imageUrl, "alt", "title");
 
 			// Act
 			HtmlImageTag actualTag = _srcParser.Parse(htmlImageTag);
@@ -49,7 +49,7 @@ namespace Roadkill.Tests.Unit.Text.Parsers.Images
 				.Returns(callInfo => callInfo.Arg<string>());
 
 			_textSettings.AttachmentsUrlPath = "/attuchments/";
-			HtmlImageTag htmlImageTag = new HtmlImageTag(path, path, "alt", "title");
+			var htmlImageTag = new HtmlImageTag(path, path, "alt", "title");
 
 			// Act
 			HtmlImageTag actualTag = _srcParser.Parse(htmlImageTag);

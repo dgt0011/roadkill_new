@@ -47,136 +47,110 @@ namespace Roadkill.Core.Repositories
 
 		public async Task DeleteAllUsersAsync()
 		{
-			using (var session = _store.LightweightSession())
-			{
-				session.DeleteWhere<User>(x => true);
-				await session.SaveChangesAsync();
-			}
+			using var session = _store.LightweightSession();
+			session.DeleteWhere<User>(x => true);
+			await session.SaveChangesAsync();
 		}
 
 		public async Task DeleteUserAsync(User user)
 		{
-			using (var session = _store.LightweightSession())
-			{
-				session.DeleteWhere<User>(x => x.Id == user.Id);
-				await session.SaveChangesAsync();
-			}
+			using var session = _store.LightweightSession();
+			session.DeleteWhere<User>(x => x.Id == user.Id);
+			await session.SaveChangesAsync();
 		}
 
 		public async Task<IEnumerable<User>> FindAllEditorsAsync()
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<User>()
-					.Where(x => x.IsEditor)
-					.ToListAsync();
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<User>()
+				.Where(x => x.IsEditor)
+				.ToListAsync();
 		}
 
 		public async Task<IEnumerable<User>> FindAllAdminsAsync()
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<User>()
-					.Where(x => x.IsAdmin)
-					.ToListAsync();
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<User>()
+				.Where(x => x.IsAdmin)
+				.ToListAsync();
 		}
 
 		public async Task<User> GetAdminByIdAsync(Guid id)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<User>()
-					.FirstOrDefaultAsync(x => x.Id == id);
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<User>()
+				.FirstOrDefaultAsync(x => x.Id == id);
 		}
 
 		public async Task<User> GetUserByActivationKeyAsync(string key)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<User>()
-					.FirstOrDefaultAsync(x => x.ActivationKey == key);
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<User>()
+				.FirstOrDefaultAsync(x => x.ActivationKey == key);
 		}
 
 		public async Task<User> GetEditorByIdAsync(Guid id)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<User>()
-					.FirstOrDefaultAsync(x => x.Id == id && x.IsEditor);
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<User>()
+				.FirstOrDefaultAsync(x => x.Id == id && x.IsEditor);
 		}
 
 		public async Task<User> GetUserByEmailAsync(string email, bool? isActivated = null)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<User>()
-					.FirstOrDefaultAsync(x => x.Email == email && x.IsActivated == isActivated);
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<User>()
+				.FirstOrDefaultAsync(x => x.Email == email && x.IsActivated == isActivated);
 		}
 
 		public async Task<User> GetUserByIdAsync(Guid id, bool? isActivated = null)
 		{
-			using (var session = _store.QuerySession())
+			using var session = _store.QuerySession();
+			// default to searching for activated users
+			if (isActivated is null)
 			{
-				// default to searching for activated users
-				if (isActivated is null)
-				{
-					isActivated = true;
-				}
-				return await session
-					.Query<User>()
-					.FirstOrDefaultAsync(x => x.Id == id && x.IsActivated == isActivated);
+				isActivated = true;
 			}
+			return await session
+				.Query<User>()
+				.FirstOrDefaultAsync(x => x.Id == id && x.IsActivated == isActivated);
 		}
 
 		public async Task<User> GetUserByPasswordResetKeyAsync(string key)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<User>()
-					.FirstOrDefaultAsync(x => x.PasswordResetKey == key);
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<User>()
+				.FirstOrDefaultAsync(x => x.PasswordResetKey == key);
 		}
 
 		public async Task<User> GetUserByUsernameAsync(string username)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<User>()
-					.FirstOrDefaultAsync(x => x.Username == username);
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<User>()
+				.FirstOrDefaultAsync(x => x.Username == username);
 		}
 
 		public async Task<User> GetUserByUsernameOrEmailAsync(string username, string email)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<User>()
-					.FirstOrDefaultAsync(x => x.Username == username || x.Email == email);
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<User>()
+				.FirstOrDefaultAsync(x => x.Username == username || x.Email == email);
 		}
 
 		public async Task SaveOrUpdateUserAsync(User user)
 		{
-			using (var session = _store.LightweightSession())
-			{
-				session.Store(user);
-				await session.SaveChangesAsync();
-			}
+			using var session = _store.LightweightSession();
+			session.Store(user);
+			await session.SaveChangesAsync();
 		}
 
 		public void Wipe()

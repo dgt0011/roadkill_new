@@ -56,7 +56,7 @@ namespace Roadkill.Api.Authorization.JWT
 						if (principal != null && securityToken != null)
 							return userRefreshToken;
 					}
-					catch (Exception e)
+					catch (Exception)
 					{
 						return null;
 					}
@@ -70,10 +70,10 @@ namespace Roadkill.Api.Authorization.JWT
 		{
 			try
 			{
-				ClaimsPrincipal principal = _tokenHandler.ValidateToken(jwtToken, _tokenValidationParameters, out SecurityToken securityToken);
+				_ = _tokenHandler.ValidateToken(jwtToken, _tokenValidationParameters, out SecurityToken securityToken);
 				return securityToken as JwtSecurityToken;
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				return null;
 			}
@@ -89,10 +89,10 @@ namespace Roadkill.Api.Authorization.JWT
 		{
 			var allClaims = new List<Claim>(existingClaims)
 			{
-				new Claim(ClaimTypes.Name, email)
+				new(ClaimTypes.Name, email)
 			};
 
-			var key = Encoding.ASCII.GetBytes(_jwtSettings.Password);
+			byte[] key = Encoding.ASCII.GetBytes(_jwtSettings.Password);
 			var symmetricSecurityKey = new SymmetricSecurityKey(key);
 
 			var tokenDescriptor = new SecurityTokenDescriptor

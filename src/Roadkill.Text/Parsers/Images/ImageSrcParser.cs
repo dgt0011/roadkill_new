@@ -6,7 +6,7 @@ namespace Roadkill.Text.Parsers.Images
 {
 	public class ImageSrcParser
 	{
-		private static readonly Regex _imgFileRegex = new Regex("^File:", RegexOptions.IgnoreCase);
+		private static readonly Regex _imgFileRegex = new("^File:", RegexOptions.IgnoreCase);
 
 		private readonly TextSettings _textSettings;
 

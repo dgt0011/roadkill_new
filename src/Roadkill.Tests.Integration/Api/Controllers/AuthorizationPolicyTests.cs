@@ -1,12 +1,9 @@
 using System;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Roadkill.Api.Common.Request;
 using Roadkill.Api.Common.Response;
@@ -133,7 +130,7 @@ namespace Roadkill.Tests.Integration.Api.Controllers
 
 			var response = await _httpClient.PostAsync(requestUri, stringContent);
 			response.StatusCode.ShouldBe(statusCode, response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-			var content = await response.Content.ReadAsStringAsync();
+			string content = await response.Content.ReadAsStringAsync();
 
 			content.ShouldNotBeNull();
 			return response;

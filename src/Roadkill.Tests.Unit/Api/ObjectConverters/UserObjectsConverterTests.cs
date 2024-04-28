@@ -1,15 +1,10 @@
-using System;
-using System.Reflection;
 using AutoFixture;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
-using Roadkill.Api.Common.Request;
 using Roadkill.Api.Common.Response;
 using Roadkill.Api.Extensions;
 using Roadkill.Api.ObjectConverters;
-using Roadkill.Core.Entities;
 using Roadkill.Core.Entities.Authorization;
-using Shouldly;
 using Xunit;
 
 namespace Roadkill.Tests.Unit.Api.ObjectConverters

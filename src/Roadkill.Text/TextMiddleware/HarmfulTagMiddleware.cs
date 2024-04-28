@@ -10,12 +10,12 @@ namespace Roadkill.Text.TextMiddleware
 
 		public HarmfulTagMiddleware(IHtmlSanitizerFactory htmlSanitizerFactory)
 		{
-			_sanitizer = htmlSanitizerFactory.CreateHtmlSanitizer();
+			_sanitizer = htmlSanitizerFactory?.CreateHtmlSanitizer();
 		}
 
 		public override PageHtml Invoke(PageHtml pageHtml)
 		{
-			if (_sanitizer != null)
+			if (_sanitizer != null && pageHtml != null)
 			{
 				pageHtml.Html = _sanitizer.Sanitize(pageHtml.Html);
 			}

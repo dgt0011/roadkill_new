@@ -34,7 +34,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 
-		public static Dictionary<string, string> TestConfigValues = new Dictionary<string, string>
+		public static Dictionary<string, string> TestConfigValues = new()
 		{
 			{ "Postgres:ConnectionString", "host=localhost;port=5432;database=postgres;username=roadkill;password=roadkill;" },
 			{ "Smtp:Host", "smtp.gmail.com" },
@@ -154,15 +154,14 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 
 			try
 			{
-				var result = manager.CreateAsync(user, password).GetAwaiter().GetResult();
+				var result = await manager.CreateAsync(user, password);
 				if (!result.Succeeded)
 				{
 					string errors = string.Join("\n", result.Errors.ToList().Select(x => x.Description));
 					throw new Exception("Failed to create editor user - " + errors);
 				}
 
-				manager.AddClaimAsync(user, RoadkillClaims.EditorClaim).GetAwaiter()
-					.GetResult();
+				await manager.AddClaimAsync(user, RoadkillClaims.EditorClaim);
 
 				_outputHelper.WriteLine("Created editor user with role");
 			}

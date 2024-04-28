@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,7 +42,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void AddNewVersion()
+		public async Task AddNewVersion()
 		{
 			// given
 			PageVersionRepository repository = CreateRepository();
@@ -62,7 +62,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void AllVersions()
+		public async Task AllVersions()
 		{
 			// given
 			PageVersionRepository repository = CreateRepository();
@@ -77,7 +77,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void DeleteVersion()
+		public async Task DeleteVersion()
 		{
 			// given
 			PageVersionRepository repository = CreateRepository();
@@ -202,7 +202,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 			IDocumentStore documentStore = DocumentStoreManager.GetMartenDocumentStore(typeof(PageVersionRepository), _outputHelper);
 			var pageRepository = new PageRepository(documentStore);
 
-			List<Page> pages = _fixture.CreateMany<Page>(10).ToList();
+			var pages = _fixture.CreateMany<Page>(10).ToList();
 
 			var pageVersions = new List<PageVersion>();
 			foreach (Page page in pages)

@@ -77,7 +77,7 @@ namespace Roadkill.Api.Controllers
 			if (userRefreshToken != null)
 			{
 				JwtSecurityToken jwtSecurityToken = _jwtTokenService.GetJwtSecurityToken(userRefreshToken.JwtToken);
-				List<Claim> existingClaims = jwtSecurityToken.Claims.ToList();
+				var existingClaims = jwtSecurityToken.Claims.ToList();
 				string email = existingClaims.First(x => x.Type == ClaimTypes.Name).Value;
 
 				string refreshToken = userRefreshToken.RefreshToken;

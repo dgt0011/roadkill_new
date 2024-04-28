@@ -1,12 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
-using Roadkill.Api.Authorization;
 using Roadkill.Api.Authorization.Policies;
 using Roadkill.Api.Common.Response;
 using Roadkill.Api.Controllers;
@@ -75,7 +73,7 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 		public async Task AllTags_should_return_all_tags_and_fill_count_property()
 		{
 			// given
-			List<string> tags = _fixture.CreateMany<string>().ToList();
+			var tags = _fixture.CreateMany<string>().ToList();
 
 			var duplicateTags = new List<string>();
 			duplicateTags.Add("duplicate-tag");
@@ -109,7 +107,7 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 			string tagToSearch = "typo-tag";
 			string newTag = "fixed-tag";
 
-			List<Page> pagesWithTags = _fixture.CreateMany<Page>().ToList();
+			var pagesWithTags = _fixture.CreateMany<Page>().ToList();
 			pagesWithTags.ForEach(p => { p.Tags = existingTags; });
 
 			_pageRepositoryMock
@@ -134,7 +132,7 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 			// given
 			string tag = "gutentag";
 
-			List<Page> pagesWithTag = _fixture.CreateMany<Page>().ToList();
+			var pagesWithTag = _fixture.CreateMany<Page>().ToList();
 			pagesWithTag[0].Tags += $", {tag}";
 			pagesWithTag[1].Tags += $", {tag}";
 			pagesWithTag[2].Tags += $", {tag}";
@@ -151,7 +149,7 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 			IEnumerable<PageResponse> response = actionResult.GetOkObjectResultValue();
 
 			response.Count()
-					.ShouldBe(pagesWithTag.Count());
+					.ShouldBe(pagesWithTag.Count);
 		}
 	}
 }

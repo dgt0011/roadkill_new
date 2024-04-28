@@ -71,7 +71,7 @@ namespace Roadkill.Tests.Unit.Text.Sanitizer
 			expectedHtml.ShouldBe(actualHtml);
 		}
 
-		private HtmlSanitizerFactory CreateFactory(TextSettings textSettings = null, IHtmlWhiteListProvider whiteListProviderMock = null)
+		private static HtmlSanitizerFactory CreateFactory(TextSettings textSettings = null, IHtmlWhiteListProvider whiteListProviderMock = null)
 		{
 			if (textSettings == null)
 			{

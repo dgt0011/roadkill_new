@@ -62,11 +62,6 @@ namespace Roadkill.Api
 				.AddCheck<MartenHealthCheck>("marten");
 		}
 
-		public void ConfigureTestServices(IServiceCollection services)
-		{
-			// Configure services for Test environment
-		}
-
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		// You can add these parameters to this method: IHostingEnvironment env, ILoggerFactory loggerFactory
 		public override void Configure(IApplicationBuilder app)

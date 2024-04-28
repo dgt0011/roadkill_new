@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using AutoMapper;
@@ -40,7 +40,7 @@ namespace Roadkill.Api.ObjectConverters
 
 		private static IEnumerable<string> TagsToList(string csvTags)
 		{
-			List<string> tagList = new List<string>();
+			var tagList = new List<string>();
 			char delimiter = ',';
 
 			if (!string.IsNullOrEmpty(csvTags))
@@ -87,7 +87,7 @@ namespace Roadkill.Api.ObjectConverters
 			title = Regex.Replace(title, @"[\s-]+", " ").Trim();
 
 			// If it's over 30 chars, take the first 30.
-			title = title.Substring(0, title.Length <= 75 ? title.Length : 75).Trim();
+			title = title[..(title.Length <= 75 ? title.Length : 75)].Trim();
 
 			// hyphenate spaces
 			title = Regex.Replace(title, @"\s", "-");

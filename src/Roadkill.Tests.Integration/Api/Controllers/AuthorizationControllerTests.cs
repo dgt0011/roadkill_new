@@ -44,14 +44,12 @@ namespace Roadkill.Tests.Integration.Api.Controllers
 			string json = JsonConvert.SerializeObject(data);
 			var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-			using (var response = await _httpClient.PostAsync(requestUri, stringContent))
-			{
-				response.StatusCode.ShouldBe(statusCode, response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-				var content = await response.Content.ReadAsStringAsync();
+			using var response = await _httpClient.PostAsync(requestUri, stringContent);
+			response.StatusCode.ShouldBe(statusCode, response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+			var content = await response.Content.ReadAsStringAsync();
 
-				content.ShouldNotBeNull();
-				return response;
-			}
+			content.ShouldNotBeNull();
+			return response;
 		}
 	}
 }

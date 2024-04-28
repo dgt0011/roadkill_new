@@ -45,7 +45,7 @@ namespace Roadkill.Tests.Unit.Text.Sanitizer
 		public void should_return_default_whitelistsettings_when_path_is_empty()
 		{
 			// given
-			var defaultSettings = _htmlWhiteListProvider.CreateDefaultWhiteList();
+			var defaultSettings = HtmlWhiteListProvider.CreateDefaultWhiteList();
 
 			// when
 			HtmlWhiteListSettings settings = _htmlWhiteListProvider.Deserialize();
@@ -59,7 +59,7 @@ namespace Roadkill.Tests.Unit.Text.Sanitizer
 		{
 			// given
 			_textSettings.HtmlElementWhiteListPath = "file that doesnt exist.json";
-			var defaultSettings = _htmlWhiteListProvider.CreateDefaultWhiteList();
+			var defaultSettings = HtmlWhiteListProvider.CreateDefaultWhiteList();
 
 			// when
 			HtmlWhiteListSettings settings = _htmlWhiteListProvider.Deserialize();
@@ -73,7 +73,7 @@ namespace Roadkill.Tests.Unit.Text.Sanitizer
 		{
 			// given
 			_textSettings.HtmlElementWhiteListPath = Path.Combine(Directory.GetCurrentDirectory(), "Text", "Sanitizer", "dodgy-whitelist.json");
-			var defaultSettings = _htmlWhiteListProvider.CreateDefaultWhiteList();
+			var defaultSettings = HtmlWhiteListProvider.CreateDefaultWhiteList();
 
 			// when
 			HtmlWhiteListSettings settings = _htmlWhiteListProvider.Deserialize();

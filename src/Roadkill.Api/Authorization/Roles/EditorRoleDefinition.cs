@@ -8,7 +8,7 @@ namespace Roadkill.Api.Authorization.Roles
 		public const string Name = "editor";
 		string IUserRoleDefinition.Name => Name;
 
-		private readonly List<string> _availablePolicies = new List<string>()
+		private readonly List<string> _availablePolicies = new()
 		{
 			PolicyNames.AddPage,
 			PolicyNames.UpdatePage

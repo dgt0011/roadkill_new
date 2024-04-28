@@ -38,100 +38,84 @@ namespace Roadkill.Core.Repositories
 
 		public async Task<PageVersion> AddNewVersionAsync(int pageId, string text, string author, DateTime? dateTime = null)
 		{
-			using (var session = _store.LightweightSession())
+			using var session = _store.LightweightSession();
+			if (dateTime == null)
 			{
-				if (dateTime == null)
-				{
-					dateTime = DateTime.UtcNow;
-				}
-
-				var pageVersion = new PageVersion
-				{
-					Id = Guid.NewGuid(),
-					Author = author,
-					DateTime = dateTime.Value,
-					PageId = pageId,
-					Text = text
-				};
-				session.Store(pageVersion);
-
-				await session.SaveChangesAsync();
-				return pageVersion;
+				dateTime = DateTime.UtcNow;
 			}
+
+			var pageVersion = new PageVersion
+			{
+				Id = Guid.NewGuid(),
+				Author = author,
+				DateTime = dateTime.Value,
+				PageId = pageId,
+				Text = text
+			};
+			session.Store(pageVersion);
+
+			await session.SaveChangesAsync();
+			return pageVersion;
 		}
 
 		public async Task<IEnumerable<PageVersion>> AllVersionsAsync()
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<PageVersion>()
-					.ToListAsync();
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<PageVersion>()
+				.ToListAsync();
 		}
 
 		public async Task DeleteVersionAsync(Guid id)
 		{
-			using (var session = _store.OpenSession())
-			{
-				session.Delete<PageVersion>(id);
-				session.DeleteWhere<PageVersion>(x => x.Id == id);
-				await session.SaveChangesAsync();
-			}
+			using var session = _store.LightweightSession();
+			session.Delete<PageVersion>(id);
+			session.DeleteWhere<PageVersion>(x => x.Id == id);
+			await session.SaveChangesAsync();
 		}
 
 		public async Task<IEnumerable<PageVersion>> FindPageVersionsByPageIdAsync(int pageId)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<PageVersion>()
-					.Where(x => x.PageId == pageId)
-					.OrderByDescending(x => x.DateTime)
-					.ToListAsync();
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<PageVersion>()
+				.Where(x => x.PageId == pageId)
+				.OrderByDescending(x => x.DateTime)
+				.ToListAsync();
 		}
 
 		public async Task<IEnumerable<PageVersion>> FindPageVersionsByAuthorAsync(string username)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<PageVersion>()
-					.Where(x => x.Author.Equals(username, StringComparison.CurrentCultureIgnoreCase))
-					.OrderByDescending(x => x.DateTime)
-					.ToListAsync();
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<PageVersion>()
+				.Where(x => x.Author.Equals(username, StringComparison.CurrentCultureIgnoreCase))
+				.OrderByDescending(x => x.DateTime)
+				.ToListAsync();
 		}
 
 		public async Task<PageVersion> GetLatestVersionAsync(int pageId)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<PageVersion>()
-					.OrderByDescending(x => x.DateTime)
-					.FirstOrDefaultAsync(x => x.PageId == pageId);
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<PageVersion>()
+				.OrderByDescending(x => x.DateTime)
+				.FirstOrDefaultAsync(x => x.PageId == pageId);
 		}
 
 		public async Task<PageVersion> GetByIdAsync(Guid id)
 		{
-			using (var session = _store.QuerySession())
-			{
-				return await session
-					.Query<PageVersion>()
-					.FirstOrDefaultAsync(x => x.Id == id);
-			}
+			using var session = _store.QuerySession();
+			return await session
+				.Query<PageVersion>()
+				.FirstOrDefaultAsync(x => x.Id == id);
 		}
 
 		public async Task UpdateExistingVersionAsync(PageVersion version)
 		{
-			using (var session = _store.LightweightSession())
-			{
-				session.Store(version);
-				await session.SaveChangesAsync();
-			}
+			using var session = _store.LightweightSession();
+			session.Store(version);
+			await session.SaveChangesAsync();
 		}
 
 		public void Wipe()

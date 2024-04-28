@@ -25,7 +25,7 @@ namespace Roadkill.Text.Parsers.Markdig
 			foreach (MarkdownObject child in markdownObject.Descendants())
 			{
 				// LinkInline can be both an <img.. or a <a href="...">
-				LinkInline linkInline = child as LinkInline;
+				var linkInline = child as LinkInline;
 				if (linkInline != null)
 				{
 					EnsureAttributesInLink(linkInline);
@@ -168,7 +168,7 @@ namespace Roadkill.Text.Parsers.Markdig
 		{
 			// Markdig TODO
 			// string linkID = altText.ToLowerInvariant();
-			HtmlImageTag args = new HtmlImageTag(url, url, altText, "");
+			var args = new HtmlImageTag(url, url, altText, "");
 			_imageDelegate(args);
 
 			return args;
@@ -176,7 +176,7 @@ namespace Roadkill.Text.Parsers.Markdig
 
 		private HtmlLinkTag InvokeLinkParsedEvent(string url, string text, string target)
 		{
-			HtmlLinkTag args = new HtmlLinkTag(url, url, text, target);
+			var args = new HtmlLinkTag(url, url, text, target);
 			_linkDelegate(args);
 
 			return args;

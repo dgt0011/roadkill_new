@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using NSubstitute;
-using Roadkill.Api.Authorization;
 using Roadkill.Api.Authorization.JWT;
 using Roadkill.Api.Common.Request;
 using Roadkill.Api.Common.Response;
@@ -106,7 +105,7 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 			_signinManagerMock.PasswordSignInAsync(roadkillUser, password, true, false)
 				.Returns(Task.FromResult(SignInResult.Success));
 
-			var claims = new List<Claim>() { new Claim("any", "thing") } as IList<Claim>;
+			var claims = new List<Claim>() { new("any", "thing") } as IList<Claim>;
 			
 			_userManagerMock.GetClaimsAsync(roadkillUser)
 				.Returns(Task.FromResult(claims));

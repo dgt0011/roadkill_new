@@ -3,8 +3,6 @@ using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Roadkill.Api.Authorization;
-using Serilog.Parsing;
 using Shouldly;
 using Xunit;
 
@@ -76,7 +74,7 @@ namespace Roadkill.Tests.Unit
 			var customAttributes = methodType.GetCustomAttributes(attributeType, false);
 			customAttributes.Length.ShouldBeGreaterThan(0, $"No {attributeType.Name} found for {methodName}");
 
-			RouteAttribute routeAttribute = customAttributes[0] as RouteAttribute;
+			var routeAttribute = customAttributes[0] as RouteAttribute;
 			routeAttribute.Template.ShouldBe(routeTemplate);
 		}
 
@@ -103,7 +101,7 @@ namespace Roadkill.Tests.Unit
 			var customAttributes = methodType.GetCustomAttributes(attributeType, false);
 			customAttributes.Length.ShouldBeGreaterThan(0, $"No {attributeType.Name} found for {methodName}");
 
-			AuthorizeAttribute authorizeAttribute = customAttributes[0] as AuthorizeAttribute;
+			var authorizeAttribute = customAttributes[0] as AuthorizeAttribute;
 
 			authorizeAttribute.ShouldNotBeNull($"No AuthorizeAttribute policy string specified for {methodName}");
 			authorizeAttribute?.Policy.ShouldNotBeNullOrEmpty($"No AuthorizeAttribute policy string specified for {methodName}");

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using AutoFixture;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
-using Roadkill.Api.Authorization;
 using Roadkill.Api.Authorization.Policies;
 using Roadkill.Api.Common.Request;
 using Roadkill.Api.Common.Response;
@@ -151,7 +148,7 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 		public async Task AllVersions()
 		{
 			// given
-			List<PageVersion> pageVersions = _fixture.CreateMany<PageVersion>().ToList();
+			var pageVersions = _fixture.CreateMany<PageVersion>().ToList();
 
 			_pageVersionRepositoryMock
 				.AllVersionsAsync()
@@ -172,7 +169,7 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 		public async Task FindPageVersionsByPageId()
 		{
 			// given
-			List<PageVersion> pageVersions = _fixture.CreateMany<PageVersion>().ToList();
+			var pageVersions = _fixture.CreateMany<PageVersion>().ToList();
 			int pageId = 42;
 			pageVersions.ForEach(p => p.PageId = pageId);
 
@@ -195,7 +192,7 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 		public async Task FindPageVersionsByAuthor()
 		{
 			// given
-			List<PageVersion> pageVersions = _fixture.CreateMany<PageVersion>().ToList();
+			var pageVersions = _fixture.CreateMany<PageVersion>().ToList();
 			string author = "weirdo";
 			pageVersions.ForEach(p => p.Author = author);
 
@@ -252,7 +249,7 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 		public async Task Delete()
 		{
 			// given
-			Guid pageVersionId = Guid.NewGuid();
+			var pageVersionId = Guid.NewGuid();
 
 			_pageVersionRepositoryMock
 				.DeleteVersionAsync(pageVersionId)

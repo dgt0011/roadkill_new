@@ -4,9 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Asp.Versioning;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Roadkill.Api.Authorization;
 using Roadkill.Api.Authorization.Roles;
 using Roadkill.Core.Entities;
 using Roadkill.Core.Repositories;
@@ -31,14 +29,12 @@ namespace Roadkill.Api.Controllers
 		public async Task<ActionResult<string>> ExportPagesToXml()
 		{
 			IEnumerable<Page> allPages = await _pageRepository.AllPagesAsync();
-			XmlSerializer serializer = new XmlSerializer(typeof(List<Page>));
+			var serializer = new XmlSerializer(typeof(List<Page>));
 
-			StringBuilder builder = new StringBuilder();
-			using (StringWriter writer = new StringWriter(builder))
-			{
-				serializer.Serialize(writer, allPages);
-				return Ok(builder.ToString());
-			}
+			var builder = new StringBuilder();
+			using var writer = new StringWriter(builder);
+			serializer.Serialize(writer, allPages);
+			return Ok(builder.ToString());
 		}
 
 		[HttpPost]

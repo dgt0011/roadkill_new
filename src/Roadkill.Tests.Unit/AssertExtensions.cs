@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Xunit;
@@ -29,7 +29,7 @@ namespace Roadkill.Tests.Unit
 				}
 			});
 
-			Assert.False(true, "Could not find item in the collection");
+			Assert.Fail("Could not find item in the collection");
 		}
 	}
 }

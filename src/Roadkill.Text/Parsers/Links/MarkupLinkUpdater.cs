@@ -31,7 +31,7 @@ namespace Roadkill.Text.Parsers.Links
 			pageName = AddDashesForMarkdownTitle(pageName);
 			string customRegex = GetRegexForTitle(pageName);
 
-			Regex regex = new Regex(customRegex, RegexOptions.IgnoreCase);
+			var regex = new Regex(customRegex, RegexOptions.IgnoreCase);
 			return regex.IsMatch(text);
 		}
 
@@ -48,7 +48,7 @@ namespace Roadkill.Text.Parsers.Links
 			newPageName = AddDashesForMarkdownTitle(newPageName, false);
 
 			string customRegex = GetRegexForTitle(oldPageName);
-			Regex regex = new Regex(customRegex, RegexOptions.IgnoreCase);
+			var regex = new Regex(customRegex, RegexOptions.IgnoreCase);
 
 			return regex.Replace(text, (System.Text.RegularExpressions.Match match) =>
 			{

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +9,7 @@ namespace Roadkill.Text.Parsers.Links
 	/// </summary>
 	public class HtmlLinkTag
 	{
-		private readonly List<string> _externalLinkPrefixes = new List<string>()
+		private readonly List<string> _externalLinkPrefixes = new()
 		{
 			"http://",
 			"https://",

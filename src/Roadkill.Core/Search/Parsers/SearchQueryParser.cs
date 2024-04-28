@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Sprache;
 
 namespace Roadkill.Core.Search.Parsers
 {
@@ -15,7 +14,7 @@ namespace Roadkill.Core.Search.Parsers
 		// Gold and ANTLR parsers to integrate in future:
 		// https://github.com/yetanotherchris/spruce/blob/master/Spruce.Core/Search/Grammar/spruce.grm
 		// https://github.com/lucastorri/query-parser/blob/master/antlr4/Query.g4
-		private static readonly Regex _parserRegex = new Regex(@"(?<name>\w+?):(?<value>""[^""]+""|[\w]+)", RegexOptions.Compiled);
+		private static readonly Regex _parserRegex = new(@"(?<name>\w+?):(?<value>""[^""]+""|[\w]+)", RegexOptions.Compiled);
 
 		public ParsedQueryResult ParseQuery(string queryText)
 		{

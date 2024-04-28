@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,7 +45,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void AddNewPage_should_add_page_and_increment_id()
+		public async Task AddNewPage_should_add_page_and_increment_id()
 		{
 			// given
 			string createdBy = "lyon";
@@ -75,7 +75,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		}
 
 		[Fact]
-		public async void AllPages()
+		public async Task AllPages()
 		{
 			// given
 			PageRepository repository = CreateRepository();
@@ -85,15 +85,15 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 			IEnumerable<Page> actualPages = await repository.AllPagesAsync();
 
 			// then
-			actualPages.Count().ShouldBe(pages.Count());
+			actualPages.Count().ShouldBe(pages.Count);
 		}
 
 		[Fact]
-		public async void AllTags_should_return_raw_tags_for_all_pages()
+		public async Task AllTags_should_return_raw_tags_for_all_pages()
 		{
 			// given
 			PageRepository repository = CreateRepository();
-			List<Page> pages = _fixture.CreateMany<Page>(10).ToList();
+			var pages = _fixture.CreateMany<Page>(10).ToList();
 			pages.ForEach(p => p.Tags = "tag1, tag2, tag3");
 			CreateTenPages(repository, pages);
 
@@ -101,12 +101,12 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 			IEnumerable<string> actualTags = await repository.AllTagsAsync();
 
 			// then
-			actualTags.Count().ShouldBe(pages.Count());
+			actualTags.Count().ShouldBe(pages.Count);
 			actualTags.First().ShouldBe("tag1, tag2, tag3");
 		}
 
 		[Fact]
-		public async void DeletePage_should_delete_specific_page()
+		public async Task DeletePage_should_delete_specific_page()
 		{
 			// given
 			PageRepository repository = CreateRepository();
@@ -193,7 +193,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 			PageRepository repository = CreateRepository();
 			CreateTenPages(repository);
 
-			List<Page> pages = _fixture.CreateMany<Page>(3).ToList();
+			var pages = _fixture.CreateMany<Page>(3).ToList();
 			pages.ForEach(p => p.Tags = _fixture.Create<string>() + ", facebook-data-leak");
 			await repository.AddNewPageAsync(pages[0]);
 			await repository.AddNewPageAsync(pages[1]);
@@ -281,21 +281,19 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 
 		private void PrintPages()
 		{
-			using (var connection = new NpgsqlConnection(DocumentStoreManager.ConnectionString))
-			{
-				connection.Open();
-				var command = connection.CreateCommand();
-				command.CommandText = "delete from public.mt_doc_page";
-				command.CommandText = "delete from public.mt_doc_pagecontent";
+			using var connection = new NpgsqlConnection(DocumentStoreManager.ConnectionString);
+			connection.Open();
+			var command = connection.CreateCommand();
+			command.CommandText = "delete from public.mt_doc_page";
+			command.CommandText = "delete from public.mt_doc_pagecontent";
 
-				command.CommandText = "select count(*) from public.mt_doc_page";
-				long result = (long)command.ExecuteScalar();
-				_outputHelper.WriteLine("Pages: {0}", result);
+			command.CommandText = "select count(*) from public.mt_doc_page";
+			long result = (long)command.ExecuteScalar();
+			_outputHelper.WriteLine("Pages: {0}", result);
 
-				command.CommandText = "select count(*) from public.mt_doc_pagecontent";
-				result = (long)command.ExecuteScalar();
-				_outputHelper.WriteLine("PageContents: {0}", result);
-			}
+			command.CommandText = "select count(*) from public.mt_doc_pagecontent";
+			result = (long)command.ExecuteScalar();
+			_outputHelper.WriteLine("PageContents: {0}", result);
 		}
 	}
 }

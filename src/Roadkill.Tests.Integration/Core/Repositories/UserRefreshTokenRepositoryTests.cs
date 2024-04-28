@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoFixture;
 //using Baseline;
 using Marten;
 using Roadkill.Core.Entities.Authorization;

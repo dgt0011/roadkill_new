@@ -33,18 +33,23 @@ namespace Roadkill.Text.Parsers.Links.Converters
 
 		public HtmlLinkTag Convert(HtmlLinkTag htmlLinkTag)
 		{
+			if (htmlLinkTag == null)
+			{
+				return null;
+			}
+
 			string href = htmlLinkTag.OriginalHref;
 			string upperHref = href?.ToUpperInvariant() ?? "";
 
 			if (!upperHref.StartsWith("ATTACHMENT:", StringComparison.Ordinal) &&
-				!upperHref.StartsWith("~", StringComparison.Ordinal))
+			    !upperHref.StartsWith("~", StringComparison.Ordinal))
 			{
 				return htmlLinkTag;
 			}
 
 			if (upperHref.StartsWith("ATTACHMENT:", StringComparison.Ordinal))
 			{
-				href = href.Remove(0, 11);
+				href = href!.Remove(0, 11);
 				if (!href.StartsWith("/", StringComparison.Ordinal))
 				{
 					href = "/" + href;
@@ -53,7 +58,7 @@ namespace Roadkill.Text.Parsers.Links.Converters
 			else if (upperHref.StartsWith("~/", StringComparison.Ordinal))
 			{
 				// Remove the ~
-				href = href.Remove(0, 1);
+				href = href!.Remove(0, 1);
 			}
 
 			// Get the full path to the attachment

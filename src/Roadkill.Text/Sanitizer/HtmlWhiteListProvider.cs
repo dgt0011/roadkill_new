@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.Logging;
@@ -54,7 +54,7 @@ namespace Roadkill.Text.Sanitizer
 			}
 		}
 
-		internal HtmlWhiteListSettings CreateDefaultWhiteList()
+		internal static HtmlWhiteListSettings CreateDefaultWhiteList()
 		{
 			var allowedElements = new List<string>()
 			{
