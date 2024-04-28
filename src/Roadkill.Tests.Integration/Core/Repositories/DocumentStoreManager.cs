@@ -12,13 +12,13 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 	{
 		private static readonly ConcurrentDictionary<string, IDocumentStore> _documentStores = new ConcurrentDictionary<string, IDocumentStore>();
 
-		public static string ConnectionString = "Host=192.168.0.234;Port=5432;Username=dbo;Password=qbuiTvd34JTGs9X47y89M!k!!;Database=postgresdb;";
+		public static string ConnectionString = "host=localhost;port=5432;database=postgres;username=roadkill;password=roadkill;";
 
 		private static void UpdateConnectionForGoogleCloudBuild()
 		{
 			if (Directory.GetCurrentDirectory().Contains("/workspace/"))
 			{
-				ConnectionString = "host=roadkill-postgres;port=5432;database=roadkilltests;username=roadkill;password=roadkill;";
+				ConnectionString = "host=roadkill-postgres;port=5432;database=postgres;username=roadkill;password=roadkill;";
 			}
 		}
 

@@ -25,13 +25,13 @@ namespace Roadkill.Tests.Integration.Api.Controllers
 	{
 		public static Dictionary<string, string> TestConfigValues = new Dictionary<string, string>
 		{
-			{ "Postgres:ConnectionString", "Host=192.168.0.234;Port=5432;Username=dbo;Password=qbuiTvd34JTGs9X47y89M!k!!;Database=postgresdb;" },
+			{ "Postgres:ConnectionString", "host=localhost;port=5432;database=postgres;username=roadkill;password=roadkill;" },
 			{ "Smtp:Host", "smtp.gmail.com" },
 			{ "Smtp:Port", "587" },
 			{ "Smtp:UseSsl", "true" },
 			{ "Smtp:Username", "bob" },
 			{ "Smtp:Password", "mypassword" },
-			{ "Jwt:Password", "12345678901234567890" },
+			{ "Jwt:Password", "12345678901234567890123456789012" },
 			{ "Jwt:ExpiresMinutes", "7" },
 			{ "Jwt:RefreshTokenExpiresDays", "3" }
 		};

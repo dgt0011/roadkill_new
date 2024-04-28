@@ -1,4 +1,6 @@
-﻿docker run -d -p 5432:5432 --name roadkill-postgres -e POSTGRES_USER=roadkill -e POSTGRES_PASSWORD=roadkill postgres
+Integration Tests
+-----------------
+docker run -d -p 5432:5432 --name roadkill-postgres -e POSTGRES_USER=roadkill -e POSTGRES_PASSWORD=roadkill postgres
 
 
 // CI version

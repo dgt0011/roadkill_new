@@ -36,8 +36,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 
 		public static Dictionary<string, string> TestConfigValues = new Dictionary<string, string>
 		{
-			//{ "Postgres:ConnectionString", "host=localhost;port=5432;database=roadkill;username=roadkill;password=roadkill;" },
-			{ "Postgres:ConnectionString", "Host=192.168.0.234;Port=5432;Username=dbo;Password=qbuiTvd34JTGs9X47y89M!k!!;Database=postgresdb;" },
+			{ "Postgres:ConnectionString", "host=localhost;port=5432;database=postgres;username=roadkill;password=roadkill;" },
 			{ "Smtp:Host", "smtp.gmail.com" },
 			{ "Smtp:Port", "587" },
 			{ "Smtp:UseSsl", "true" },
@@ -48,8 +47,7 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 			{ "Jwt:RefreshTokenExpiresDays", "3" }
 		};
 
-		//[Fact(Skip = "This is just a data setup test.")]
-		[Fact]
+		[Fact(Skip = "This is just a data setup test.")]
 		public async Task CreateUsersAndHomepage()
 		{
 			await CreateUsers();
@@ -115,11 +113,11 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		{
 			var adminUser = new RoadkillIdentityUser()
 			{
-				UserName = "admin@darrentuer.net",
-				Email = "admin@darrentuer.net",
+				UserName = "admin@example.org",
+				Email = "admin@example.org",
 				EmailConfirmed = true
 			};
-			string password = "Qge73kj*GBY@*!MUwfLqCxPQz";
+			string password = "Password1234567890";
 
 			try
 			{
@@ -148,11 +146,11 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 		{
 			var user = new RoadkillIdentityUser()
 			{
-				UserName = "editor@darrentuer.net",
-				Email = "editor@darrentuer.net",
+				UserName = "editor@example.org",
+				Email = "editor@example.org",
 				EmailConfirmed = true
 			};
-			string password = "qbnJyBgG_kkf4KDQPmswJJpEq";
+			string password = "Password1234567890";
 
 			try
 			{

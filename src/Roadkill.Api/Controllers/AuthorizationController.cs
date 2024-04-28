@@ -88,7 +88,7 @@ namespace Roadkill.Api.Controllers
 			return StatusCode(StatusCodes.Status404NotFound);
 		}
 
-		private async Task<AuthorizationResponse> CreateNewJwtAndStoreWithRefreshToken(string refreshToken, string email, List<Claim> existingClaims)
+		private async Task<AuthorizationResponse> CreateNewJwtAndStoreWithRefreshToken(string refreshToken, string email, IList<Claim> existingClaims)
 		{
 			string ip = GetIpAddress();
 			string jwtToken = _jwtTokenService.CreateJwtToken(existingClaims, email);

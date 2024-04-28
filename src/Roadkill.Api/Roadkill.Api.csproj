@@ -18,7 +18,6 @@
 	<PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
 	<PackageReference Include="MailKit" Version="4.5.0" />
-	<PackageReference Include="Marten.AspNetIdentity" Version="1.0.33" />
 	<PackageReference Include="NSwag.AspNetCore" Version="14.0.7" />
 	<PackageReference Include="Scrutor" Version="4.2.2" />
 	<PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
@@ -35,6 +34,12 @@
     <ProjectReference Include="..\Roadkill.Core\Roadkill.Core.csproj" />
     <ProjectReference Include="..\Roadkill.Localisation\Roadkill.Localisation.csproj" />
     <ProjectReference Include="..\Roadkill.Text\Roadkill.Text.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Marten.AspNetIdentity">
+      <HintPath>..\dependencies\Marten.AspNetIdentity.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

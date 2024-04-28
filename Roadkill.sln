@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2037
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roadkill.Tests.Unit", "src\Roadkill.Tests.Unit\Roadkill.Tests.Unit.csproj", "{2463E6E0-06FF-4D41-846A-4E06F31ABB75}"
 EndProject
@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A1396D86
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roadkill.Tests.Integration", "src\Roadkill.Tests.Integration\Roadkill.Tests.Integration.csproj", "{8458A499-A8C0-4964-B0CF-070C73C44B4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roadkill.Api.Common", "src\Roadkill.Api.Common\Roadkill.Api.Common.csproj", "{95C9A132-5FBF-430A-A8EF-6884F149A74E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roadkill.Api.Common", "src\Roadkill.Api.Common\Roadkill.Api.Common.csproj", "{95C9A132-5FBF-430A-A8EF-6884F149A74E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roadkill.Api.Client", "src\Roadkill.Api.Client\Roadkill.Api.Client.csproj", "{64606AEE-FCDB-4446-812E-1C339FF6C67A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roadkill.Api.Client", "src\Roadkill.Api.Client\Roadkill.Api.Client.csproj", "{64606AEE-FCDB-4446-812E-1C339FF6C67A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
