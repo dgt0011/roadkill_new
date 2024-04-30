@@ -25,13 +25,16 @@ namespace Roadkill.Api.Controllers
 	{
 		// [ApiController] adds [FromBody] by default and model validation
 		private readonly IPageRepository _pageRepository;
+		//private readonly ICategoryRepository _categoryRepository;
 		private readonly IPageObjectsConverter _pageObjectsConverter;
 
 		public PagesController(
 			IPageRepository pageRepository,
+			//ICategoryRepository categoryRepository,
 			IPageObjectsConverter pageObjectsConverter)
 		{
 			_pageRepository = pageRepository;
+			//_categoryRepository = categoryRepository;
 			_pageObjectsConverter = pageObjectsConverter;
 		}
 

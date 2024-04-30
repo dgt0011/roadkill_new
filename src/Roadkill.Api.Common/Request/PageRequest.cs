@@ -38,13 +38,13 @@ namespace Roadkill.Api.Common.Request
 
 		/// <summary>
 		/// The user who last modified the page. If the page has
-		/// note been modified yet, this will match the CreatedBy property.
+		/// not been modified yet, this will match the CreatedBy property.
 		/// </summary>
 		public string LastModifiedBy { get; set; }
 
 		/// <summary>
 		/// The date the page was last modified on. If the page has
-		/// note been modified yet, this will match the creation date.
+		/// not been modified yet, this will match the creation date.
 		/// </summary>
 		public DateTime LastModifiedOn { get; set; }
 
@@ -59,5 +59,10 @@ namespace Roadkill.Api.Common.Request
 		/// </summary>
 		[Required]
 		public string Tags { get; set; }
+
+		/// <summary>
+		/// The Id for the Category the page is associated with.
+		/// </summary>
+		public int? CategoryId { get; set; }
 	}
 }

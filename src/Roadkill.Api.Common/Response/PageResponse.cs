@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
@@ -60,7 +60,7 @@ namespace Roadkill.Api.Common.Response
 		public bool IsLocked { get; set; }
 
 		/// <summary>
-		/// The list of tags, comma seperated, for the page.
+		/// The list of tags, comma separated, for the page.
 		/// </summary>
 		[Required]
 		[Ignore]
@@ -71,5 +71,11 @@ namespace Roadkill.Api.Common.Response
 		/// </summary>
 		[Ignore]
 		public IEnumerable<string> TagList { get; set; }
+
+		/// <summary>
+		/// The Category the page is associated with.
+		/// </summary>
+		[Ignore]
+		public Category Category { get; set; }
 	}
 }

@@ -34,10 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Update="Microsoft.CodeQuality.Analyzers" Version="3.3.2" />
     <PackageReference Update="Microsoft.NetCore.Analyzers" Version="3.3.2" />
     <PackageReference Update="OpenCover" Version="4.7.1221" />
