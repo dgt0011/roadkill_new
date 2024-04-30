@@ -32,6 +32,7 @@ namespace Roadkill.Api.Controllers
 			IPageObjectsConverter pageObjectsConverter)
 		{
 			_pageRepository = pageRepository;
+			//_categoryRepository = categoryRepository;
 			_pageObjectsConverter = pageObjectsConverter;
 		}
 
@@ -84,6 +85,22 @@ namespace Roadkill.Api.Controllers
 			IEnumerable<Page> pagesCreatedBy = await _pageRepository.FindPagesCreatedByAsync(username);
 
 			IEnumerable<PageResponse> models = pagesCreatedBy.Select(_pageObjectsConverter.ConvertToPageResponse);
+			return Ok(models);
+		}
+
+		/// <summary>
+		/// Retrieves all pages for a specific category
+		/// </summary>
+		/// <param name="categoryId">The Id of the Category that pages are associated with</param>
+		/// <returns>Meta information for all the pages associated with the specified Category</returns>
+		[HttpGet]
+		[Route(nameof(PagesForCategory))]
+		[AllowAnonymous]
+		public async Task<ActionResult<IEnumerable<PageResponse>>> PagesForCategory(int categoryId)
+		{
+			IEnumerable<Page> pagesForCategory = await _pageRepository.FindPagesByCategory(categoryId);
+
+			IEnumerable<PageResponse> models = pagesForCategory.Select(_pageObjectsConverter.ConvertToPageResponse);
 			return Ok(models);
 		}
 

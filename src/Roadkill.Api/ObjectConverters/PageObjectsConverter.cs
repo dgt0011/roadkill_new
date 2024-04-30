@@ -5,6 +5,7 @@ using AutoMapper;
 using Roadkill.Api.Common.Request;
 using Roadkill.Api.Common.Response;
 using Roadkill.Core.Entities;
+using Roadkill.Core.Repositories;
 
 namespace Roadkill.Api.ObjectConverters
 {
@@ -18,17 +19,25 @@ namespace Roadkill.Api.ObjectConverters
 	public class PageObjectsConverter : IPageObjectsConverter
 	{
 		private readonly IMapper _mapper;
+		private readonly ICategoryRepository _categoryRepository;
 
-		public PageObjectsConverter(IMapper mapper)
+		public PageObjectsConverter(IMapper mapper, ICategoryRepository categoryRepository)
 		{
 			_mapper = mapper;
+			_categoryRepository = categoryRepository;
 		}
 
 		public PageResponse ConvertToPageResponse(Page page)
 		{
+			if (page is null)
+			{
+				throw new ArgumentNullException(nameof(page));
+			}
+
 			var pageResponse = _mapper.Map<PageResponse>(page);
 			pageResponse.SeoFriendlyTitle = CreateSeoFriendlyPageTitle(page.Title);
 			pageResponse.TagList = TagsToList(page.Tags);
+			pageResponse.Category = CategoryIdToCategory(page.CategoryId);
 
 			return pageResponse;
 		}
@@ -45,7 +54,7 @@ namespace Roadkill.Api.ObjectConverters
 
 			if (!string.IsNullOrEmpty(csvTags))
 			{
-				// For the legacy tag seperator format
+				// For the legacy tag separator format
 				if (csvTags.IndexOf(";", StringComparison.Ordinal) != -1)
 				{
 					delimiter = ';';
@@ -93,6 +102,11 @@ namespace Roadkill.Api.ObjectConverters
 			title = Regex.Replace(title, @"\s", "-");
 
 			return title;
+		}
+
+		private Category CategoryIdToCategory(int? categoryId)
+		{
+			return categoryId == null ? null : _categoryRepository.GetCategoryByIdAsync(categoryId.Value).Result;
 		}
 	}
 }

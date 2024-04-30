@@ -25,7 +25,7 @@ namespace Roadkill.Tests.Unit.Api.ObjectConverters
 			var provider = services.BuildServiceProvider();
 			var mapper = provider.GetService<IMapper>();
 
-			_converter = new PageObjectsConverter(mapper);
+			_converter = new PageObjectsConverter(mapper,null);
 		}
 
 		[Fact]

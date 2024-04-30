@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,10 +19,11 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 {
 	public class PagesControllerTests
 	{
-		private IPageRepository _pageRepositoryMock;
-		private IPageObjectsConverter _viewObjectsConverterMock;
-		private PagesController _pagesController;
-		private Fixture _fixture;
+		private readonly IPageRepository _pageRepositoryMock;
+		private readonly IPageObjectsConverter _viewObjectsConverterMock;
+		private readonly PagesController _pagesController;
+		private readonly Fixture _fixture;
+		private readonly ICategoryRepository _categoryRepositoryMock;
 
 		public PagesControllerTests()
 		{
@@ -30,6 +31,7 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 
 			_pageRepositoryMock = Substitute.For<IPageRepository>();
 			_viewObjectsConverterMock = Substitute.For<IPageObjectsConverter>();
+			_categoryRepositoryMock = Substitute.For<ICategoryRepository>();
 
 			_viewObjectsConverterMock
 				.ConvertToPageResponse(Arg.Any<Page>())
@@ -51,6 +53,10 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 					};
 				});
 
+			_categoryRepositoryMock
+				.GetCategoryByIdAsync(Arg.Any<int>())
+				.Returns(new Category { Id = 1001, Description = "Test Category", Title = "Testing" });
+			
 			_pagesController = new PagesController(_pageRepositoryMock, _viewObjectsConverterMock);
 		}
 
@@ -109,10 +115,15 @@ namespace Roadkill.Tests.Unit.Api.Controllers
 			// given
 			Page expectedPage = _fixture.Create<Page>();
 			int id = expectedPage.Id;
+			int categoryId = expectedPage.CategoryId!.Value;
 
 			_pageRepositoryMock
 				.GetPageByIdAsync(id)
 				.Returns(expectedPage);
+
+			_categoryRepositoryMock
+				.GetCategoryByIdAsync(categoryId)
+				.Returns(new Category { Id = categoryId, Description = "Test Category", Title = "Testing" });
 
 			// when
 			ActionResult<PageResponse> actionResult = await _pagesController.Get(id);

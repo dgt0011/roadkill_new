@@ -11,7 +11,9 @@ namespace Roadkill.Api.Authorization.Roles
 		private readonly List<string> _availablePolicies = new()
 		{
 			PolicyNames.AddPage,
-			PolicyNames.UpdatePage
+			PolicyNames.UpdatePage,
+			PolicyNames.AddCategory,
+			PolicyNames.UpdateCategory
 		};
 
 		public bool ContainsPolicy(string policyName)

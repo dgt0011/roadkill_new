@@ -24,6 +24,10 @@ namespace Roadkill.Api.Authorization.Policies
 
 		public const string MarkdownUpdateLinks = nameof(MarkdownUpdateLinks);
 
+		public const string AddCategory = nameof(AddCategory);
+		public const string UpdateCategory = nameof(UpdateCategory);
+		public const string DeleteCategory = nameof(DeleteCategory);
+
 		public static IEnumerable<string> AllPolicies => new List<string>()
 		{
 			FindUsers,
@@ -42,7 +46,11 @@ namespace Roadkill.Api.Authorization.Policies
 
 			RenameTag,
 
-			MarkdownUpdateLinks
+			MarkdownUpdateLinks,
+
+			AddCategory,
+			UpdateCategory,
+			DeleteCategory
 		};
 	}
 }

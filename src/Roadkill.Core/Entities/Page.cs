@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Roadkill.Core.Entities
 {
@@ -19,5 +19,7 @@ namespace Roadkill.Core.Entities
 		public string Tags { get; set; }
 
 		public bool IsLocked { get; set; }
+
+		public int? CategoryId { get; set; }
 	}
 }
