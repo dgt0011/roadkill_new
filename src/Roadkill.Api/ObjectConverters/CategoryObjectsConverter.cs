@@ -35,7 +35,16 @@ namespace Roadkill.Api.ObjectConverters
 
 		public Category ConvertToCategory(CategoryRequest request)
 		{
-			return _mapper.Map<Category>(request);
+			try
+			{
+				return _mapper.Map<Category>(request);
+
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 		}
 	}
 }

@@ -9,9 +9,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Roadkill.Api.Authorization.Policies;
 using Roadkill.Api.Common.Request;
+using Asp.Versioning;
+using Roadkill.Api.Authorization.Roles;
 
 namespace Roadkill.Api.Controllers
 {
+	/// <summary>
+	/// Actions related to categories in the wiki, such as creation and retrieval.
+	/// </summary>
+	[ApiController]
+	[ApiVersion("3")]
+	[Route("v{version:apiVersion}/[controller]")]
+	[AuthorizeWithBearer]
 	public class CategoryController : ControllerBase
 	{
 		private readonly ICategoryRepository _categoryRepository;
@@ -19,9 +28,10 @@ namespace Roadkill.Api.Controllers
 
 		public CategoryController(
 			ICategoryRepository categoryRepository,
-			)
+			ICategoryObjectsConverter categoryObjectsConverter)
 		{
 			_categoryRepository = categoryRepository;
+			_categoryObjectsConverter = categoryObjectsConverter;
 		}
 
 		/// <summary>
@@ -70,7 +80,6 @@ namespace Roadkill.Api.Controllers
 			Category category = _categoryObjectsConverter.ConvertToCategory(categoryRequest);
 			if (category == null)
 			{
-				//TODO: Not Found is a really shit return status if the convert has failed
 				return NotFound();
 			}
 
@@ -92,7 +101,6 @@ namespace Roadkill.Api.Controllers
 			Category category = _categoryObjectsConverter.ConvertToCategory(categoryRequest);
 			if (category == null)
 			{
-				// again, a kinda shit response
 				return NotFound();
 			}
 
@@ -112,6 +120,5 @@ namespace Roadkill.Api.Controllers
 			await _categoryRepository.DeleteCategoryAsync(categoryId);
 			return NoContent();
 		}
-
 	}
 }

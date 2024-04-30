@@ -17,6 +17,9 @@ namespace Roadkill.Api.ObjectConverters
 			CreateMap<Page, PageResponse>();
 			CreateMap<RoadkillIdentityUser, UserResponse>();
 			CreateMap<PageVersion, PageVersionResponse>();
+
+			CreateMap<CategoryRequest, Category>();
+			CreateMap<Category, CategoryResponse>();
 		}
 	}
 }
