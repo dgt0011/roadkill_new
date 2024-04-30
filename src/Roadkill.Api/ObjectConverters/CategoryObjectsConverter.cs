@@ -10,7 +10,7 @@ namespace Roadkill.Api.ObjectConverters
 	{
 		CategoryResponse ConvertToCategoryResponse(Category category);
 
-		Category ConvertToToCategory(CategoryRequest request);
+		Category ConvertToCategory(CategoryRequest request);
 	}
 
 	public class CategoryObjectsConverter : ICategoryObjectsConverter
@@ -33,7 +33,7 @@ namespace Roadkill.Api.ObjectConverters
 			return categoryResponse;
 		}
 
-		public Category ConvertToToCategory(CategoryRequest request)
+		public Category ConvertToCategory(CategoryRequest request)
 		{
 			return _mapper.Map<Category>(request);
 		}

@@ -10,7 +10,7 @@ namespace Roadkill.Api.Common.Request
 	public class PageRequest
 	{
 		/// <summary>
-		/// The unique JwtToken of the page. This is generated on the server.
+		/// The unique Id of the page. This is generated on the server.
 		/// </summary>
 		public int Id { get; set; }
 
