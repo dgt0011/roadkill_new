@@ -25,6 +25,8 @@ namespace Roadkill.Core.Repositories
 
 		Task<IEnumerable<Page>> FindPagesContainingTagAsync(string tag);
 
+		Task<IEnumerable<Page>> FindPagesByCategory(int categoryId);
+
 		Task<Page> GetPageByIdAsync(int id);
 
 		// Case insensitive search by page title
@@ -110,6 +112,15 @@ namespace Roadkill.Core.Repositories
 			return await session
 				.Query<Page>()
 				.Where(x => x.Tags.Contains(tag))
+				.ToListAsync();
+		}
+
+		public async Task<IEnumerable<Page>> FindPagesByCategory(int categoryId)
+		{
+			await using var session = _store.QuerySession();
+			return await session
+				.Query<Page>()
+				.Where(x => x.CategoryId == categoryId)
 				.ToListAsync();
 		}
 

@@ -43,8 +43,6 @@ namespace Roadkill.Tests.Integration.Core.Repositories
 			return new CategoryRepository(documentStore);
 		}
 
-
-
 		[Fact]
 		public async Task AddNewCategory_should_add_category_and_increment_id()
 		{
